@@ -1,4 +1,4 @@
-import CityCardScreen from '../city-card-screen/city-card-screen';
+import CityCard from '../../components/city-card/city-card';
 
 type CitiesListScreenProps = {
   offersCount: number;
@@ -7,7 +7,7 @@ type CitiesListScreenProps = {
 function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
   const offersArray = [];
   for (let i = 0; i < offersCount; i++) {
-    offersArray.push(<CityCardScreen />);
+    offersArray.push(<CityCard />);
   }
   return (
     <div className="page page--gray page--main">
