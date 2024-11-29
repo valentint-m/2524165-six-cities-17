@@ -20,7 +20,7 @@ const Offers: Offer[] = [
     bedroomCount: 2,
     maxGuestCount: 5,
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     host: {
       avatarURL: 'img/avatar-angelina.jpg',
       name: 'Angelina',
@@ -70,7 +70,7 @@ const Offers: Offer[] = [
     bedroomCount: 1,
     maxGuestCount: 4,
     isPremium: false,
-    isFavorite: false,
+    isFavorite: true,
     host: {
       avatarURL: 'img/avatar-angelina.jpg',
       name: 'Angelina',
