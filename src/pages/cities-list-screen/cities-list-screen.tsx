@@ -9,6 +9,7 @@ type CitiesListScreenProps = {
 }
 
 function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
+  /*eslint-disable-next-line*/
   const [activeCardId, setActiveCardId] = useState('0');
   const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
 
