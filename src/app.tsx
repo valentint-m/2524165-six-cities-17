@@ -10,7 +10,7 @@ import PrivateRoute from './components/private-route';
 
 type AppScreenProps = {
   offersCount: number;
-  offers: Offer;
+  offers: Offer[];
 }
 
 function App ({offersCount, offers}: AppScreenProps): JSX.Element {
