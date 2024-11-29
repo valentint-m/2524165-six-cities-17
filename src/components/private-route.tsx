@@ -3,11 +3,10 @@ import { Path } from '../const';
 
 type PrivateRouteProps = {
   children: JSX.Element;
+  isLoggedIn: boolean;
 };
 
-function PrivateRoute ({children}: PrivateRouteProps): JSX.Element {
-  const isLoggedIn = false;
-
+function PrivateRoute ({children, isLoggedIn}: PrivateRouteProps): JSX.Element {
   return isLoggedIn ? children : <Navigate to={Path.Login} />;
 }
 

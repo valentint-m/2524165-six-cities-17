@@ -1,16 +1,26 @@
 import { Link } from 'react-router-dom';
-import CityCard from '../../components/city-card';
 import { Path } from '../../const';
+import { Offer } from '../../types/offer';
+import { useState } from 'react';
+import CityCard from '../../components/city-card';
 
 type CitiesListScreenProps = {
-  offersCount: number;
+  offers: Offer[];
 }
 
-function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
-  const offersArray = [];
-  for (let i = 0; i < offersCount; i++) {
-    offersArray.push(<CityCard key={i}/>);
+function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState('0');
+  const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
+  /* eslint-disable */
+  console.log(activeCardId);
+  /* eslint-enable */
+  let favoritesCount = 0;
+  for (let i = 0; i < offers.length; i++) {
+    if (offers[i].isFavorite) {
+      favoritesCount++;
+    }
   }
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -28,7 +38,7 @@ function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoritesCount}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -48,34 +58,34 @@ function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link to={Path.Main} className="locations__item-link tabs__item tabs__item--active">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
@@ -102,7 +112,7 @@ function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {offersArray}
+                {offers.map((offer) => <CityCard offer={offer} key={offer.id} onMouseOverCard={handleMouseOverCard}/>)}
 
               </div>
             </section>
