@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom';
-import CityCard from '../../components/city-card';
 import { Path } from '../../const';
+import { Offer } from '../../types/offer';
+import CityCard from '../../components/city-card';
+
 
 type CitiesListScreenProps = {
-  offersCount: number;
+  offers: Offer[];
 }
 
-function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
-  const offersArray = [];
-  for (let i = 0; i < offersCount; i++) {
-    offersArray.push(<CityCard key={i}/>);
-  }
+function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -102,7 +100,7 @@ function CitiesListScreen ({offersCount}: CitiesListScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {offersArray}
+                {offers.map((offer) => <CityCard offer={offer} key={offer.id} />)}
 
               </div>
             </section>
