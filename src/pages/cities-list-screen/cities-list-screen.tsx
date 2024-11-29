@@ -4,7 +4,6 @@ import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import CityCard from '../../components/city-card';
 
-
 type CitiesListScreenProps = {
   offers: Offer[];
 }
@@ -50,34 +49,34 @@ function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Paris</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Cologne</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Brussels</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <Link to={Path.Main} className="locations__item-link tabs__item tabs__item--active">
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Hamburg</span>
-                </a>
+                </Link>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <Link to={Path.Main} className="locations__item-link tabs__item">
                   <span>Dusseldorf</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </section>

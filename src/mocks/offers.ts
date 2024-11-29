@@ -8,15 +8,27 @@ const Offers: Offer[] = [
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     previewPictureURL: 'img/apartment-01.jpg',
     pictures: [
-      'img/apartment-01.jpg',
-      'img/room.jpg',
-      'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      {
+        id: '1',
+        url: 'img/apartment-03.jpg',
+      },
+      {
+        id: '2',
+        url: 'img/apartment-02.jpg',
+      },
+      {
+        id: '3',
+        url: 'img/apartment-01.jpg',
+      },
+      {
+        id: '4',
+        url: 'img/room.jpg',
+      }
     ],
     type: HousingType.Apartment,
     city: City.Amsterdam,
     price: 120,
-    rating: 80,
+    rating: 4.8,
     bedroomCount: 2,
     maxGuestCount: 5,
     isPremium: true,
@@ -33,15 +45,27 @@ const Offers: Offer[] = [
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     previewPictureURL: 'img/room.jpg',
     pictures: [
-      'img/apartment-01.jpg',
-      'img/room.jpg',
-      'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      {
+        id: '1',
+        url: 'img/apartment-02.jpg',
+      },
+      {
+        id: '2',
+        url: 'img/apartment-03.jpg',
+      },
+      {
+        id: '3',
+        url: 'img/apartment-01.jpg',
+      },
+      {
+        id: '4',
+        url: 'img/room.jpg',
+      }
     ],
     type: HousingType.Room,
     city: City.Amsterdam,
     price: 50,
-    rating: 80,
+    rating: 4.5,
     bedroomCount: 1,
     maxGuestCount: 3,
     isPremium: false,
@@ -58,15 +82,27 @@ const Offers: Offer[] = [
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     previewPictureURL: 'img/apartment-02.jpg',
     pictures: [
-      'img/apartment-01.jpg',
-      'img/room.jpg',
-      'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      {
+        id: '1',
+        url: 'img/room.jpg',
+      },
+      {
+        id: '2',
+        url: 'img/apartment-02.jpg',
+      },
+      {
+        id: '3',
+        url: 'img/apartment-03.jpg',
+      },
+      {
+        id: '4',
+        url: 'img/apartment-01.jpg',
+      }
     ],
     type: HousingType.Apartment,
     city: City.Amsterdam,
     price: 80,
-    rating: 80,
+    rating: 4,
     bedroomCount: 1,
     maxGuestCount: 4,
     isPremium: false,
@@ -83,15 +119,27 @@ const Offers: Offer[] = [
     description: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     previewPictureURL: 'img/apartment-03.jpg',
     pictures: [
-      'img/apartment-01.jpg',
-      'img/room.jpg',
-      'img/apartment-02.jpg',
-      'img/apartment-03.jpg'
+      {
+        id: '1',
+        url: 'img/apartment-01.jpg',
+      },
+      {
+        id: '2',
+        url: 'img/apartment-02.jpg',
+      },
+      {
+        id: '3',
+        url: 'img/apartment-03.jpg',
+      },
+      {
+        id: '4',
+        url: 'img/room.jpg',
+      }
     ],
     type: HousingType.Apartment,
     city: City.Amsterdam,
     price: 100,
-    rating: 100,
+    rating: 5,
     bedroomCount: 2,
     maxGuestCount: 6,
     isPremium: true,

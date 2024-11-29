@@ -5,5 +5,7 @@ const Path = {
   Offer: '/offer/:id'
 } as const;
 
-export { Path };
+const RATING_TO_BAR_WIDTH_RATIO = 20;
+
+export { Path, RATING_TO_BAR_WIDTH_RATIO };
 

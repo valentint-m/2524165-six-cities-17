@@ -1,4 +1,6 @@
+import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
 import { Offer } from '../types/offer';
+import { Link } from 'react-router-dom';
 
 type CityCardProps = {
   offer: Offer;
@@ -6,15 +8,16 @@ type CityCardProps = {
 }
 
 function CityCard ({offer, onMouseOverCard}: CityCardProps): JSX.Element {
+  const cityCardURL = `/offer/${offer.id}`;
   return (
     <article className="cities__card place-card" onMouseOver={() => onMouseOverCard(offer.id)}>
       <div className="place-card__mark">
         <span>{offer.isPremium ? 'Premium' : ''}</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={cityCardURL}>
           <img className="place-card__image" src={offer.previewPictureURL} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -31,12 +34,12 @@ function CityCard ({offer, onMouseOverCard}: CityCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offer.rating}%`}}></span>
+            <span style={{width: `${offer.rating * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={cityCardURL}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

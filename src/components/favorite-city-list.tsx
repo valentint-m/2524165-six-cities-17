@@ -1,4 +1,6 @@
 import { Offer } from '../types/offer';
+import { Link } from 'react-router-dom';
+import { Path } from '../const';
 import FavoriteCard from './favorite-card';
 
 type FavoriteCityListProps = {
@@ -11,9 +13,9 @@ function FavoriteCityList ({offers}: FavoriteCityListProps): JSX.Element {
       <li className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <Link to={Path.Main} className="locations__item-link">
               <span>Amsterdam</span>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="favorites__places">

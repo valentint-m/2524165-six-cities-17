@@ -10,12 +10,17 @@ type Host = {
   isPro: boolean;
 }
 
+type Picture = {
+  id: string;
+  url: string;
+}
+
 export type Offer = {
   id: string;
   title: string;
   description: string;
   previewPictureURL: string;
-  pictures: string[];
+  pictures: Picture[];
   type: OfferType;
   city: OfferCity;
   price: number;
