@@ -11,6 +11,13 @@ function OfferScreen ({offers}: OfferScreenProps): JSX.Element {
   const params = useParams();
   const offerById = offers.find((offer) => offer.id === params.id) as Offer;
 
+  let favoritesCount = 0;
+  for (let i = 0; i < offers.length; i++) {
+    if (offers[i].isFavorite) {
+      favoritesCount++;
+    }
+  }
+
   return (
     <div className="page">
       <header className="header">
@@ -28,7 +35,7 @@ function OfferScreen ({offers}: OfferScreenProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoritesCount}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">

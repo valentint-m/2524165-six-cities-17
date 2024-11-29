@@ -12,6 +12,13 @@ function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState('0');
   const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
 
+  let favoritesCount = 0;
+  for (let i = 0; i < offers.length; i++) {
+    if (offers[i].isFavorite) {
+      favoritesCount++;
+    }
+  }
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -29,7 +36,7 @@ function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoritesCount}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
