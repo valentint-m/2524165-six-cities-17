@@ -2,11 +2,12 @@ import { Offer } from '../types/offer';
 
 type CityCardProps = {
   offer: Offer;
+  onMouseOverCard: (offerId: string) => void;
 }
 
-function CityCard ({offer}: CityCardProps): JSX.Element {
+function CityCard ({offer, onMouseOverCard}: CityCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={() => onMouseOverCard(offer.id)}>
       <div className="place-card__mark">
         <span>{offer.isPremium ? 'Premium' : ''}</span>
       </div>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
 import { Offer } from '../../types/offer';
+import { useState } from 'react';
 import CityCard from '../../components/city-card';
 
 
@@ -9,6 +10,9 @@ type CitiesListScreenProps = {
 }
 
 function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
+  const [activeCardId, setActiveCardId] = useState('0');
+  const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -100,7 +104,7 @@ function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {offers.map((offer) => <CityCard offer={offer} key={offer.id} />)}
+                {offers.map((offer) => <CityCard offer={offer} key={offer.id} onMouseOverCard={handleMouseOverCard}/>)}
 
               </div>
             </section>
