@@ -9,11 +9,11 @@ type CitiesListScreenProps = {
 }
 
 function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
-  /* eslint-disable */
   const [activeCardId, setActiveCardId] = useState('0');
-  /* eslint-enable */
   const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
-
+  /* eslint-disable */
+  console.log(activeCardId);
+  /* eslint-enable */
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {
     if (offers[i].isFavorite) {

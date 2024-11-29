@@ -1,20 +1,20 @@
 import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
 import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
+import { getUrlById } from '../utils';
 
 type FavoriteCardProps = {
   offer: Offer;
 }
 
 function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
-  const favoriteCardURL = `/offer/${offer.id}`;
   return (
     <article className="favorites__card place-card">
       <div className="place-card__mark">
         <span>{offer.isPremium ? 'Premium' : ''}</span>
       </div>
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={favoriteCardURL}>
+        <Link to={getUrlById(offer.id)}>
           <img className="place-card__image" src={offer.previewPictureURL} width="150" height="110" alt="Place image" />
         </Link>
       </div>
@@ -38,7 +38,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={favoriteCardURL}>{offer.title}</Link>
+          <Link to={getUrlById(offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
