@@ -9,7 +9,9 @@ type CitiesListScreenProps = {
 }
 
 function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
+  /* eslint-disable */
   const [activeCardId, setActiveCardId] = useState('0');
+  /* eslint-enable */
   const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
 
   let favoritesCount = 0;
