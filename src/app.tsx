@@ -9,15 +9,14 @@ import OfferScreen from './pages/offer-screen/offer-screen';
 import PrivateRoute from './components/private-route';
 
 type AppScreenProps = {
-  offersCount: number;
   offers: Offer[];
 }
 
-function App ({offersCount, offers}: AppScreenProps): JSX.Element {
+function App ({offers}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={Path.Main} element={<CitiesListScreen offersCount={offersCount} />} />
+        <Route path={Path.Main} element={<CitiesListScreen offers={offers} />} />
         <Route path={Path.Login} element={<LoginScreen />} />
         <Route path={Path.Favorites} element={
           <PrivateRoute>

@@ -1,7 +1,3 @@
-const Option = {
-  OffersCount: 4
-} as const;
-
 const Path = {
   Main: '/',
   Login: '/login',
@@ -9,5 +5,5 @@ const Path = {
   Offer: '/offer/:id'
 } as const;
 
-export { Option, Path };
+export { Path };
 
