@@ -1,8 +1,15 @@
-import { City, HousingType } from '../mocks/mock-const';
+import { CityName, HousingType } from '../mocks/mock-const';
 
-type OfferCity = City.Amsterdam | City.Brussels | City.Cologne | City.Dusseldorf | City.Hamburg | City.Paris;
+type OfferCity = CityName.Amsterdam | CityName.Brussels | CityName.Cologne | CityName.Dusseldorf | CityName.Hamburg | CityName.Paris;
 
 type OfferType = HousingType.Apartment | HousingType.Hotel | HousingType.House | HousingType.Room;
+
+type City = {
+  title: OfferCity;
+  lat: number;
+  lng: number;
+  zoom: number;
+}
 
 type Host = {
   avatarURL: string;
@@ -22,7 +29,7 @@ export type Offer = {
   previewPictureURL: string;
   pictures: Picture[];
   type: OfferType;
-  city: OfferCity;
+  city: City;
   price: number;
   rating: number;
   bedroomCount: number;

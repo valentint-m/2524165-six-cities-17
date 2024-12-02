@@ -1,4 +1,4 @@
-const enum City {
+const enum CityName {
   Paris = 'Paris',
   Cologne = 'Cologne',
   Brussels = 'Brussels',
@@ -14,4 +14,4 @@ const enum HousingType {
   Room = 'room'
 }
 
-export { City, HousingType };
+export { CityName, HousingType };

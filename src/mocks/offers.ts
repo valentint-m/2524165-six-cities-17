@@ -1,4 +1,4 @@
-import { City, HousingType } from './mock-const';
+import { CityName, HousingType } from './mock-const';
 import { Offer } from '../types/offer';
 
 const Offers: Offer[] = [
@@ -26,7 +26,12 @@ const Offers: Offer[] = [
       }
     ],
     type: HousingType.Apartment,
-    city: City.Amsterdam,
+    city: {
+      title: CityName.Amsterdam,
+      lat: 52.3609553943508,
+      lng: 4.85309666406198,
+      zoom: 10,
+    },
     price: 120,
     rating: 4.8,
     bedroomCount: 2,
@@ -63,7 +68,12 @@ const Offers: Offer[] = [
       }
     ],
     type: HousingType.Room,
-    city: City.Amsterdam,
+    city: {
+      title: CityName.Amsterdam,
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
+      zoom: 10,
+    },
     price: 50,
     rating: 4.5,
     bedroomCount: 1,
@@ -100,7 +110,12 @@ const Offers: Offer[] = [
       }
     ],
     type: HousingType.Apartment,
-    city: City.Amsterdam,
+    city: {
+      title: CityName.Amsterdam,
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
+      zoom: 10,
+    },
     price: 80,
     rating: 4,
     bedroomCount: 1,
@@ -137,7 +152,12 @@ const Offers: Offer[] = [
       }
     ],
     type: HousingType.Apartment,
-    city: City.Amsterdam,
+    city: {
+      title: CityName.Amsterdam,
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
+      zoom: 10,
+    },
     price: 100,
     rating: 5,
     bedroomCount: 2,
