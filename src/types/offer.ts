@@ -4,12 +4,6 @@ type OfferCity = CityName.Amsterdam | CityName.Brussels | CityName.Cologne | Cit
 
 type OfferType = HousingType.Apartment | HousingType.Hotel | HousingType.House | HousingType.Room;
 
-type City = {
-  title: OfferCity;
-  lat: number;
-  lng: number;
-  zoom: number;
-}
 
 type Host = {
   avatarURL: string;
@@ -22,6 +16,23 @@ type Picture = {
   url: string;
 }
 
+export type Point = {
+  title: string;
+  lat: number;
+  lng: number;
+}
+
+export type Points = Point[];
+
+export type City = {
+  title: OfferCity;
+  location: {
+    lat: number;
+    lng: number;
+    zoom: number;
+  };
+}
+
 export type Offer = {
   id: string;
   title: string;
@@ -30,6 +41,7 @@ export type Offer = {
   pictures: Picture[];
   type: OfferType;
   city: City;
+  location: Point;
   price: number;
   rating: number;
   bedroomCount: number;
