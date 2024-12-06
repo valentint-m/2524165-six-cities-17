@@ -1,19 +1,24 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
-import { Offer } from '../../types/offer';
+import { City, Offer, Point } from '../../types/offer';
 import { useState } from 'react';
 import CityCard from '../../components/city-card';
+import Map from '../../components/map';
 
 type CitiesListScreenProps = {
   offers: Offer[];
 }
 
 function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
-  const [activeCardId, setActiveCardId] = useState('0');
-  const handleMouseOverCard = (offerId: string): void => setActiveCardId(offerId);
-  /* eslint-disable */
-  console.log(activeCardId);
-  /* eslint-enable */
+  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
+  const city: City = offers[0].city;
+
+  function handleCityCardHover (pointName: string) {
+    const currentPoint = offers.find((offer) => offer.location.title === pointName);
+
+    setSelectedPoint(currentPoint?.location);
+  }
+
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {
     if (offers[i].isFavorite) {
@@ -112,12 +117,14 @@ function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {offers.map((offer) => <CityCard offer={offer} key={offer.id} onMouseOverCard={handleMouseOverCard}/>)}
+                {offers.map((offer) => <CityCard offer={offer} key={offer.id} onHoverOverCard={handleCityCardHover}/>)}
 
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} points={offers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
+              </section>
             </div>
           </div>
         </div>
