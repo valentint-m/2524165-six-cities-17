@@ -1,19 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
 import { Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
-import { Offer } from '../../types/offer';
+import { Offer, OffersNearby } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import OfferPicture from '../../components/offer-picture';
 import FormSubmitComment from '../../components/form-submit-comment';
 import ReviewList from '../../components/review-list';
+import Map from '../../components/map';
 
 type OfferScreenProps = {
   offers: Offer[];
+  nearbyOffers: OffersNearby[];
   userComments: UserComment[];
 }
 
-function OfferScreen ({offers, userComments}: OfferScreenProps): JSX.Element {
+function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): JSX.Element {
   const params = useParams();
   const offerById = offers.find((offer) => offer.id === params.id) as Offer;
+  const nearbyOffersById = nearbyOffers.find((offersList) => offersList.id === params.id) as OffersNearby;
 
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {
@@ -164,7 +167,9 @@ function OfferScreen ({offers, userComments}: OfferScreenProps): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map">
+            <Map city={offerById.city} points={nearbyOffersById.offers.map((offer) => offer.location)} selectedPoint={undefined} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

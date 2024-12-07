@@ -1,5 +1,5 @@
 import { CityName, HousingType } from './mock-const';
-import { Offer } from '../types/offer';
+import { Offer, OffersNearby } from '../types/offer';
 
 const Offers: Offer[] = [
   {
@@ -200,4 +200,40 @@ const Offers: Offer[] = [
   }
 ];
 
-export { Offers };
+const NearbyOffers: OffersNearby[] = [
+  {
+    id: '1',
+    offers: [
+      Offers[1],
+      Offers[2],
+      Offers[3]
+    ],
+  },
+  {
+    id: '2',
+    offers: [
+      Offers[0],
+      Offers[2],
+      Offers[3]
+    ],
+  },
+  {
+    id: '3',
+    offers: [
+      Offers[0],
+      Offers[1],
+      Offers[3]
+    ],
+  },
+  {
+    id: '4',
+    offers: [
+      Offers[0],
+      Offers[1],
+      Offers[2]
+    ],
+  },
+];
+
+
+export { Offers, NearbyOffers };

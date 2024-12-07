@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Path } from './const';
-import { Offer } from './types/offer';
+import { Offer, OffersNearby } from './types/offer';
 import { UserComment } from './types/comment';
 import CitiesListScreen from './pages/cities-list-screen/cities-list-screen';
 import ErrorScreen from './pages/error-screen/error-screen';
@@ -11,10 +11,11 @@ import PrivateRoute from './components/private-route';
 
 type AppScreenProps = {
   offers: Offer[];
+  nearbyOffers: OffersNearby[];
   userComments: UserComment[];
 }
 
-function App ({offers, userComments}: AppScreenProps): JSX.Element {
+function App ({offers, nearbyOffers, userComments}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -26,7 +27,7 @@ function App ({offers, userComments}: AppScreenProps): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={Path.Offer} element={<OfferScreen offers={offers} userComments={userComments} />} />
+        <Route path={Path.Offer} element={<OfferScreen offers={offers} userComments={userComments} nearbyOffers={nearbyOffers}/>} />
         <Route path='*' element={<ErrorScreen />} />
       </Routes>
     </BrowserRouter>

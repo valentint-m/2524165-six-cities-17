@@ -51,4 +51,9 @@ export type Offer = {
   host: Host;
 }
 
+export type OffersNearby = {
+  id: string;
+  offers: Offer[];
+}
+
 
