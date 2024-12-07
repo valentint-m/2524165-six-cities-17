@@ -5,16 +5,17 @@ import { getUrlById } from '../utils';
 
 type CityCardProps = {
   offer: Offer;
+  isOnMainPage: boolean;
   onHoverOverCard: (offerId: string) => void;
 }
 
-function CityCard ({offer, onHoverOverCard}: CityCardProps): JSX.Element {
+function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card" >
+    <article className={`${isOnMainPage ? 'cities__card' : 'near-places__card'} place-card`} >
       <div className="place-card__mark">
         <span>{offer.isPremium ? 'Premium' : ''}</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
         <Link to={getUrlById(offer.id)}>
           <img className="place-card__image" src={offer.previewPictureURL} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location.title)}/>
         </Link>
