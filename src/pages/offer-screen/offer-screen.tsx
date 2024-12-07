@@ -19,10 +19,6 @@ function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): J
   const offerById = offers.find((offer) => offer.id === params.id) as Offer;
   const nearbyOffersById = nearbyOffers.find((offersList) => offersList.id === params.id) as OffersNearby;
 
-  function handleCityCardHover () {
-    return null;
-  }
-
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {
     if (offers[i].isFavorite) {
@@ -180,7 +176,7 @@ function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): J
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffersById.offers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
+              {nearbyOffersById.offers.map((offer) => <CityCard offer={offer} onHoverOverCard={() => null} isOnMainPage key={offer.id} />)}
             </div>
           </section>
         </div>
