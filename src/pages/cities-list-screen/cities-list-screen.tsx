@@ -117,7 +117,7 @@ function CitiesListScreen ({offers}: CitiesListScreenProps): JSX.Element {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {offers.map((offer) => <CityCard offer={offer} key={offer.id} onHoverOverCard={handleCityCardHover}/>)}
+                {offers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
 
               </div>
             </section>
