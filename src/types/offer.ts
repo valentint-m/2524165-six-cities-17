@@ -1,6 +1,6 @@
 import { CityName, HousingType } from '../mocks/mock-const';
 
-type OfferCity = CityName.Amsterdam | CityName.Brussels | CityName.Cologne | CityName.Dusseldorf | CityName.Hamburg | CityName.Paris;
+export type OfferCity = CityName.Amsterdam | CityName.Brussels | CityName.Cologne | CityName.Dusseldorf | CityName.Hamburg | CityName.Paris;
 
 type OfferType = HousingType.Apartment | HousingType.Hotel | HousingType.House | HousingType.Room;
 
