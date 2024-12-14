@@ -6,8 +6,8 @@ const Path = {
 } as const;
 
 const UrlMarker = {
-  Default: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  Selected: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg'
+  Default: 'img/pin.svg',
+  Selected: 'img/pin-active.svg'
 } as const;
 
 const RATING_TO_BAR_WIDTH_RATIO = 20;
