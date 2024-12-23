@@ -7,6 +7,13 @@ const CityName = {
   Dusseldorf: 'Dusseldorf'
 };
 
+const SortTypeName = {
+  Popular: 'Popular',
+  PriceLowToHigh: 'Price: low to high',
+  PriceHighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first'
+};
+
 const enum HousingType {
   Apartment = 'apartment',
   Hotel = 'hotel',
@@ -14,4 +21,4 @@ const enum HousingType {
   Room = 'room'
 }
 
-export { CityName, HousingType };
+export { CityName, SortTypeName, HousingType };

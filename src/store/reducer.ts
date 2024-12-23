@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CityName } from '../mocks/mock-const';
+import { CityName, SortTypeName } from '../mocks/mock-const';
 import { Offers } from '../mocks/offers';
-import { changeCity, loadCityOffers } from './actions';
-import { getCityByName, getOffersByCity } from '../city-selection-logic';
+import { changeCity, changeSortType, loadCityOffers, sortCityOffers } from './actions';
+import { getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer } from '../types/offer';
 import { CityInfo } from '../mocks/cities';
 
@@ -10,6 +10,8 @@ type State = {
   city: City;
   offers: Offer[];
   offersByCity: Offer[];
+  offersByCityDefaultSort: Offer[];
+  sortType: string;
 }
 
 const initialState: State = {
@@ -23,6 +25,8 @@ const initialState: State = {
   },
   offers: Offers,
   offersByCity: Offers.slice(0, 4),
+  offersByCityDefaultSort: Offers.slice(0, 4),
+  sortType: SortTypeName.Popular,
 };
 
 const reducer = createReducer (initialState, (builder) => {
@@ -31,6 +35,12 @@ const reducer = createReducer (initialState, (builder) => {
   })
     .addCase(loadCityOffers, (state) => {
       state.offersByCity = getOffersByCity(state.offers, state.city.title);
+    })
+    .addCase(changeSortType, (state, action) => {
+      state.sortType = action.payload.sortTypeName;
+    })
+    .addCase(sortCityOffers, (state) => {
+      state.offersByCity = sortCityOffersByType(state.offersByCity, state.offersByCityDefaultSort, state.sortType);
     });
 });
 
