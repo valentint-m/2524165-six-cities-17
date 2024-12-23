@@ -1,6 +1,4 @@
-import { HousingType } from '../mocks/mock-const';
-
-type OfferType = HousingType.Apartment | HousingType.Hotel | HousingType.House | HousingType.Room;
+type OfferType = string;
 
 type Host = {
   avatarURL: string;

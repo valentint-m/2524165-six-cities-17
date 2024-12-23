@@ -1,4 +1,4 @@
-import { SortTypeName } from './mocks/mock-const';
+import { SortTypeName } from './const';
 import { City, Offer } from './types/offer';
 
 function getCityByName (cities: City[], cityName: string): City {

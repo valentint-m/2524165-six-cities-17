@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { Path } from '../../const';
 import { Offer, Point } from '../../types/offer';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 import CityCard from '../../components/city-card';
 import Map from '../../components/map';
 import CityList from '../../components/city-list';
-import { useAppSelector } from '../../hooks';
 import SortTypeList from '../../components/sort-type-list';
 
 type CitiesListScreenProps = {

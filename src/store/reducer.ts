@@ -1,10 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CityName, SortTypeName } from '../mocks/mock-const';
-import { Offers } from '../mocks/offers';
+import { SortTypeName } from '../const';
 import { changeCity, changeSortType, loadCityOffers, sortCityOffers } from './actions';
 import { getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer } from '../types/offer';
-import { CityInfo } from '../mocks/cities';
 
 type State = {
   city: City;
