@@ -3,6 +3,9 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app';
+import { fetchOffersAction } from './store/api-actions';
+
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +14,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App userComments={UserComments} nearbyOffers={NearbyOffers} cities={CityName}/>
+      <App />
     </Provider>
   </React.StrictMode>
 );
+

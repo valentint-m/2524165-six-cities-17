@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortTypeName } from '../const';
-import { changeCity, changeSortType, loadCityOffers, sortCityOffers } from './actions';
-import { getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
+import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers } from './actions';
+import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer } from '../types/offer';
 
 type State = {
@@ -9,30 +9,40 @@ type State = {
   offers: Offer[];
   offersByCity: Offer[];
   offersByCityDefaultSort: Offer[];
+  cities: City[];
   sortType: string;
 }
 
 const initialState: State = {
   city: {
-    title: CityName.Paris,
+    name: '',
     location: {
-      lat: 52.35514938496378,
-      lng: 4.673877537499948,
+      latitude: 0,
+      longitude: 0,
       zoom: 8
     }
   },
-  offers: Offers,
-  offersByCity: Offers.slice(0, 4),
-  offersByCityDefaultSort: Offers.slice(0, 4),
+  offers: [],
+  offersByCity: [],
+  offersByCityDefaultSort: [],
+  cities: [],
   sortType: SortTypeName.Popular,
 };
 
 const reducer = createReducer (initialState, (builder) => {
   builder.addCase(changeCity, (state, action) => {
-    state.city = getCityByName(CityInfo, action.payload.cityName);
+    state.city = getCityByName(state.cities, action.payload.cityName);
   })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+      state.cities = getCitiesInfo(state.offers);
+      state.city = state.cities[0];
+      state.offersByCity = getOffersByCity(state.offers, state.city.name);
+      state.offersByCityDefaultSort = state.offersByCity;
+    })
     .addCase(loadCityOffers, (state) => {
-      state.offersByCity = getOffersByCity(state.offers, state.city.title);
+      state.offersByCity = getOffersByCity(state.offers, state.city.name);
+      state.offersByCityDefaultSort = state.offersByCity;
     })
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload.sortTypeName;

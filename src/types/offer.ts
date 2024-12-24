@@ -1,54 +1,50 @@
-type OfferType = string;
-
 type Host = {
-  avatarURL: string;
   name: string;
+  avatarURL: string;
   isPro: boolean;
 }
 
-type Picture = {
-  id: string;
-  url: string;
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
-
-export type Point = {
-  title: string;
-  lat: number;
-  lng: number;
-}
-
-export type Points = Point[];
 
 export type City = {
-  title: string;
-  location: {
-    lat: number;
-    lng: number;
-    zoom: number;
-  };
+  name: string;
+  location: Location;
 }
 
 export type Offer = {
   id: string;
   title: string;
-  description: string;
-  previewPictureURL: string;
-  pictures: Picture[];
-  type: OfferType;
-  city: City;
-  location: Point;
+  type: string;
   price: number;
-  rating: number;
-  bedroomCount: number;
-  maxGuestCount: number;
-  isPremium: boolean;
+  previewImage: string;
+  city: City;
+  location: Location;
   isFavorite: boolean;
-  host: Host;
+  isPremium: boolean;
+  rating: number;
 }
 
-export type OffersNearby = {
+export type OfferById = {
   id: string;
-  offers: Offer[];
+  title: string;
+  type: string;
+  price: number;
+  previewImage: string;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  images: string[];
+  maxAdults: number;
 }
 
 

@@ -2,11 +2,12 @@ import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
 import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
 import { getUrlById } from '../utils';
+import { Location } from '../types/offer';
 
 type CityCardProps = {
   offer: Offer;
   isOnMainPage: boolean;
-  onHoverOverCard: (offerId: string) => void;
+  onHoverOverCard: (location: Location) => void;
 }
 
 function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.Element {
@@ -17,7 +18,7 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
       </div>
       <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
         <Link to={getUrlById(offer.id)}>
-          <img className="place-card__image" src={offer.previewPictureURL} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location.title)}/>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location)}/>
         </Link>
       </div>
       <div className="place-card__info">

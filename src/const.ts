@@ -17,7 +17,13 @@ const SortTypeName = {
   TopRatedFirst: 'Top rated first'
 };
 
+const ApiRoute = {
+  Offers: '/offers',
+  Favorite: '/favorite',
+  Login: '/login'
+};
+
 const RATING_TO_BAR_WIDTH_RATIO = 20;
 
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName };
+export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName, ApiRoute };
 

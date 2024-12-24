@@ -1,23 +1,21 @@
 import { Link, useParams } from 'react-router-dom';
 import { Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
-import { Offer, OffersNearby } from '../../types/offer';
+import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import OfferPicture from '../../components/offer-picture';
 import FormSubmitComment from '../../components/form-submit-comment';
 import ReviewList from '../../components/review-list';
-import Map from '../../components/map';
-import CityCard from '../../components/city-card';
+//import Map from '../../components/map';
+//import CityCard from '../../components/city-card';
 
 type OfferScreenProps = {
   offers: Offer[];
-  nearbyOffers: OffersNearby[];
   userComments: UserComment[];
 }
 
-function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): JSX.Element {
+function OfferScreen ({offers, userComments}: OfferScreenProps): JSX.Element {
   const params = useParams();
-  const offerById = offers.find((offer) => offer.id === params.id) as Offer;
-  const nearbyOffersById = nearbyOffers.find((offersList) => offersList.id === params.id) as OffersNearby;
+  const offerById = offers.find((offer) => offer.id === params.id) as OfferById;
 
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {
@@ -62,7 +60,7 @@ function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): J
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
 
-              {offerById.pictures.map((picture) => <OfferPicture pictureURL={picture.url} key={picture.id}/>)}
+              {offerById.images.map((image) => <OfferPicture pictureURL={image} key={image}/>)}
 
             </div>
           </div>
@@ -94,10 +92,10 @@ function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): J
                   Apartment
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {offerById.bedroomCount} Bedrooms
+                  {offerById.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {offerById.maxGuestCount} adults
+                  Max {offerById.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
@@ -169,14 +167,14 @@ function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): J
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={offerById.city} points={nearbyOffersById.offers.map((offer) => offer.location)} selectedPoint={undefined} />
+
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffersById.offers.map((offer) => <CityCard offer={offer} onHoverOverCard={() => null} isOnMainPage key={offer.id} />)}
+
             </div>
           </section>
         </div>
@@ -184,5 +182,7 @@ function OfferScreen ({offers, nearbyOffers, userComments}: OfferScreenProps): J
     </div>
   );
 }
+//{nearbyOffersById.map((offer) => <CityCard offer={offer} onHoverOverCard={() => null} isOnMainPage key={offer.id} />)}
+//<Map city={offerById.city} points={nearbyOffersById.map((offer) => offer.location)} selectedPoint={undefined} />
 
 export default OfferScreen;

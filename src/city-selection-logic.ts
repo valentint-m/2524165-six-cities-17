@@ -1,12 +1,27 @@
 import { SortTypeName } from './const';
 import { City, Offer } from './types/offer';
 
+function getCitiesInfo (offers: Offer[]) {
+  const cityNames = new Set<string>();
+  const cities: City[] = [];
+  offers.forEach((offer) => cityNames.add(offer.city.name));
+
+  cityNames.forEach((cityName) => {
+    const offerByCity = offers.find((offer) => offer.city.name === cityName);
+    if (offerByCity !== undefined) {
+      cities.push(offerByCity.city);
+    }
+  });
+
+  return cities;
+}
+
 function getCityByName (cities: City[], cityName: string): City {
-  return cities.find((city) => city.title === cityName) as City;
+  return cities.find((city) => city.name === cityName) as City;
 }
 
 function getOffersByCity (offers: Offer[], cityName: string): Offer[] {
-  return offers.filter((offer) => offer.city.title === cityName);
+  return offers.filter((offer) => offer.city.name === cityName);
 }
 
 function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sortTypeName: string): Offer[] {
@@ -24,4 +39,4 @@ function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sort
   }
 }
 
-export { getCityByName, getOffersByCity, sortCityOffersByType };
+export { getCityByName, getCitiesInfo, getOffersByCity, sortCityOffersByType };

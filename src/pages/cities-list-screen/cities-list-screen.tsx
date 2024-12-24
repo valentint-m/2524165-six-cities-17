@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
-import { Offer, Point } from '../../types/offer';
+import { Offer, Location } from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import CityCard from '../../components/city-card';
@@ -8,20 +8,14 @@ import Map from '../../components/map';
 import CityList from '../../components/city-list';
 import SortTypeList from '../../components/sort-type-list';
 
-type CitiesListScreenProps = {
-  cities: {
-    [city: string]: string;
-  };
-}
-
-function CitiesListScreen ({ cities }: CitiesListScreenProps): JSX.Element {
-  const [selectedPoint, setSelectedPoint] = useState<Point | undefined>(undefined);
+function CitiesListScreen (): JSX.Element {
+  const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
   const offers: Offer[] = useAppSelector((state) => state.offers);
   const city = useAppSelector((state) => state.city);
   const cityOffers: Offer[] = useAppSelector((state) => state.offersByCity);
 
-  function handleCityCardHover (pointName: string) {
-    const currentPoint = cityOffers.find((offer) => offer.location.title === pointName);
+  function handleCityCardHover ({latitude, longitude}: Location) {
+    const currentPoint = cityOffers.find((offer) => offer.location.latitude === latitude && offer.location.longitude === longitude);
 
     setSelectedPoint(currentPoint?.location);
   }
@@ -68,7 +62,7 @@ function CitiesListScreen ({ cities }: CitiesListScreenProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CityList cityNames={cities} />
+            <CityList />
           </section>
         </div>
         <div className="cities">
@@ -85,7 +79,7 @@ function CitiesListScreen ({ cities }: CitiesListScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={city} points={cityOffers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
+                <Map city={city} locations={cityOffers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
               </section>
             </div>
           </div>

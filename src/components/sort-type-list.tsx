@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import SortType from './sort-type';
 import { changeSortType, sortCityOffers } from '../store/actions';
+import { SortTypeName } from '../const';
 
 export default function SortTypeList (): JSX.Element {
   const dispatch = useAppDispatch();
