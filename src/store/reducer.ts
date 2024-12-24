@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortTypeName } from '../const';
-import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers } from './actions';
+import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus } from './actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer } from '../types/offer';
 
@@ -11,6 +11,7 @@ type State = {
   offersByCityDefaultSort: Offer[];
   cities: City[];
   sortType: string;
+  isOffersDataLoading: boolean;
 }
 
 const initialState: State = {
@@ -26,6 +27,7 @@ const initialState: State = {
   offersByCity: [],
   offersByCityDefaultSort: [],
   cities: [],
+  isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
 };
 
@@ -49,6 +51,9 @@ const reducer = createReducer (initialState, (builder) => {
     })
     .addCase(sortCityOffers, (state) => {
       state.offersByCity = sortCityOffersByType(state.offersByCity, state.offersByCityDefaultSort, state.sortType);
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     });
 });
 
