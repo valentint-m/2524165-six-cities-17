@@ -20,7 +20,7 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const loginAction = createAsyncThunk<void, undefined, {
+export const checkAuth = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

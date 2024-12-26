@@ -30,7 +30,7 @@ const initialState: State = {
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const reducer = createReducer (initialState, (builder) => {
