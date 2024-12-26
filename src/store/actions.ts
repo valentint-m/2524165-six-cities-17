@@ -7,7 +7,8 @@ const Actions = {
   loadCityOffers: 'loadCityOffers',
   changeSortType: 'changeSortType',
   sortCityOffers: 'sortCityOffers',
-  setOffersDataLoadingStatus: 'setOffersDataLoadingStatus'
+  setOffersDataLoadingStatus: 'setOffersDataLoadingStatus',
+  changeAuthorizationStatus: 'changeAuthorizationStatus'
 };
 
 export const changeCity = createAction<{cityName: string}>(Actions.changeCity);
@@ -16,3 +17,4 @@ export const loadCityOffers = createAction(Actions.loadCityOffers);
 export const changeSortType = createAction<{sortTypeName: string}>(Actions.changeSortType);
 export const sortCityOffers = createAction(Actions.sortCityOffers);
 export const setOffersDataLoadingStatus = createAction<boolean>(Actions.setOffersDataLoadingStatus);
+export const changeAuthorizationStatus = createAction<boolean>(Actions.changeAuthorizationStatus);

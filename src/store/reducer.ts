@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortTypeName } from '../const';
-import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus } from './actions';
+import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, changeAuthorizationStatus } from './actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer } from '../types/offer';
 
@@ -56,6 +56,9 @@ const reducer = createReducer (initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(changeAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
