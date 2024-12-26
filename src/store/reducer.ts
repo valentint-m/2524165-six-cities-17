@@ -12,6 +12,7 @@ type State = {
   cities: City[];
   sortType: string;
   isOffersDataLoading: boolean;
+  authorizationStatus: boolean;
 }
 
 const initialState: State = {
@@ -29,6 +30,7 @@ const initialState: State = {
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
+  authorizationStatus: false,
 };
 
 const reducer = createReducer (initialState, (builder) => {
