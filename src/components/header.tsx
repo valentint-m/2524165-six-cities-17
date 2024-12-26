@@ -8,7 +8,6 @@ type HeaderProps = {
 
 export default function Header ({favoritesCount}: HeaderProps): JSX.Element {
   const isAuthorized = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.AUTH;
-  console.log(isAuthorized)
 
   return (
     <header className="header">
