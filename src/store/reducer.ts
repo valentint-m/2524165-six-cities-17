@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { SortTypeName } from '../const';
-import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, changeAuthorizationStatus } from './actions';
+import { AuthorizationStatus, SortTypeName } from '../const';
+import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, requireAuthorization } from './actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer } from '../types/offer';
 
@@ -12,7 +12,7 @@ type State = {
   cities: City[];
   sortType: string;
   isOffersDataLoading: boolean;
-  authorizationStatus: boolean;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: State = {
@@ -30,7 +30,7 @@ const initialState: State = {
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
-  authorizationStatus: false,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
 };
 
 const reducer = createReducer (initialState, (builder) => {
@@ -57,7 +57,7 @@ const reducer = createReducer (initialState, (builder) => {
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
     })
-    .addCase(changeAuthorizationStatus, (state, action) => {
+    .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     });
 });

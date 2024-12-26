@@ -23,7 +23,13 @@ const ApiRoute = {
   Login: '/login'
 };
 
+enum AuthorizationStatus {
+  AUTH = 'AUTH',
+  NO_AUTH = 'NO_AUTH',
+  UNKNOWN = 'UNKNOWN'
+}
+
 const RATING_TO_BAR_WIDTH_RATIO = 20;
 
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName, ApiRoute };
+export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName, ApiRoute, AuthorizationStatus };
 
