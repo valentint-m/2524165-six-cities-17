@@ -1,6 +1,8 @@
 import { AuthorizationStatus, Path } from '../const';
 import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
+import { store } from '../store';
+import { logoutAction } from '../store/api-actions';
 
 type HeaderProps = {
   favoritesCount: number;
@@ -8,6 +10,11 @@ type HeaderProps = {
 
 export default function Header ({favoritesCount}: HeaderProps): JSX.Element {
   const isAuthorized = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.AUTH;
+
+  function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    evt.preventDefault();
+    store.dispatch(logoutAction());
+  }
 
   return (
     <header className="header">
@@ -38,7 +45,7 @@ export default function Header ({favoritesCount}: HeaderProps): JSX.Element {
               </li>
               <li className="header__nav-item">
                 {isAuthorized && (
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" href="#" onClick={handleLogoutButtonClick}>
                     <span className="header__signout">Sign out</span>
                   </a>
                 )}

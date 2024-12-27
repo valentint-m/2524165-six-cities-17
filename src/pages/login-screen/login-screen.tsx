@@ -1,7 +1,31 @@
-import { Link } from 'react-router-dom';
-import { Path } from '../../const';
+import { Link, Navigate } from 'react-router-dom';
+import { AuthorizationStatus, Path } from '../../const';
+import { FormEvent, useRef } from 'react';
+import { loginAction } from '../../store/api-actions';
+import { store } from '../../store';
+import { useAppSelector } from '../../hooks';
 
 function LoginScreen (): JSX.Element {
+  const isLoggedIn = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.AUTH;
+
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
+
+  function submitHandler (evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    if (inputEmailRef.current && inputPasswordRef.current) {
+      const email = inputEmailRef.current.value;
+      const password = inputPasswordRef.current.value;
+      store.dispatch(loginAction({email: email, password: password}));
+    }
+  }
+
+  if (isLoggedIn) {
+    return (
+      <Navigate to={Path.Main} />
+    );
+  }
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -20,14 +44,14 @@ function LoginScreen (): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post" onSubmit={submitHandler}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" ref={inputEmailRef} required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" ref={inputPasswordRef} required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
