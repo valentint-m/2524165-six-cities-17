@@ -1,6 +1,6 @@
 import { Link, Navigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
-import { FormEvent, useRef } from 'react';
+import { FormEvent } from 'react';
 import { loginAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { useAppSelector } from '../../hooks';
@@ -8,14 +8,14 @@ import { useAppSelector } from '../../hooks';
 function LoginScreen (): JSX.Element {
   const isLoggedIn = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.AUTH;
 
-  const inputEmailRef = useRef<HTMLInputElement>(null);
-  const inputPasswordRef = useRef<HTMLInputElement>(null);
-
   function submitHandler (evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    if (inputEmailRef.current && inputPasswordRef.current) {
-      const email = inputEmailRef.current.value;
-      const password = inputPasswordRef.current.value;
+
+    const formData = new FormData(evt.currentTarget);
+    const email = formData.get('email') as string | null;
+    const password = formData.get('password') as string | null;
+
+    if (email && password) {
       store.dispatch(loginAction({email: email, password: password}));
     }
   }
@@ -47,11 +47,11 @@ function LoginScreen (): JSX.Element {
             <form className="login__form form" action="#" method="post" onSubmit={submitHandler}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" ref={inputEmailRef} required />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" ref={inputPasswordRef} required />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
