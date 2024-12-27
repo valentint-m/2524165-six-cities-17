@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer';
+import { AuthorizationStatus } from '../const';
 
 const Actions = {
   changeCity: 'changeCity',
@@ -7,7 +8,8 @@ const Actions = {
   loadCityOffers: 'loadCityOffers',
   changeSortType: 'changeSortType',
   sortCityOffers: 'sortCityOffers',
-  setOffersDataLoadingStatus: 'setOffersDataLoadingStatus'
+  setOffersDataLoadingStatus: 'setOffersDataLoadingStatus',
+  requireAuthorization: 'requireAuthorization'
 };
 
 export const changeCity = createAction<{cityName: string}>(Actions.changeCity);
@@ -16,3 +18,4 @@ export const loadCityOffers = createAction(Actions.loadCityOffers);
 export const changeSortType = createAction<{sortTypeName: string}>(Actions.changeSortType);
 export const sortCityOffers = createAction(Actions.sortCityOffers);
 export const setOffersDataLoadingStatus = createAction<boolean>(Actions.setOffersDataLoadingStatus);
+export const requireAuthorization = createAction<AuthorizationStatus>(Actions.requireAuthorization);
