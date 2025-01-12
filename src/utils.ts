@@ -1,5 +1,19 @@
-function getUrlById (id: string) {
-  return `/offer/${id}`;
+import { ApiRoute } from './const';
+
+function getPathById (id: string | undefined) {
+  return `offer/${id}`;
+}
+
+function getOfferUrlById (id: string | undefined) {
+  return `${ApiRoute.Offers}/${id}`;
+}
+
+function getNearbyOffersUrlById (id: string | undefined) {
+  return `${ApiRoute.Offers}/${id}${ApiRoute.NearbyOffers}`;
+}
+
+function getCommentsUrlById (id: string | undefined) {
+  return `${ApiRoute.Comments}/${id}`;
 }
 
 function getFormattedDate(date: string): string {
@@ -9,4 +23,4 @@ function getFormattedDate(date: string): string {
   return formattedDate;
 }
 
-export { getUrlById, getFormattedDate };
+export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getFormattedDate };

@@ -5,7 +5,7 @@ import CitiesListScreen from './pages/cities-list-screen/cities-list-screen';
 import ErrorScreen from './pages/error-screen/error-screen';
 import LoginScreen from './pages/login-screen/login-screen';
 import FavoritesScreen from './pages/favorites-screen/favorites-screen';
-//import OfferScreen from './pages/offer-screen/offer-screen';
+import OfferScreen from './pages/offer-screen/offer-screen';
 import PrivateRoute from './components/private-route';
 import LoadingScreen from './pages/loading-screen/loading-screen';
 
@@ -30,12 +30,11 @@ function App (): JSX.Element {
           </PrivateRoute>
         }
         />
+        <Route path={Path.Offer} element={<OfferScreen />} />
         <Route path='*' element={<ErrorScreen />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
-//<Route path={Path.Offer} element={<OfferScreen offers={offers} />} />
 
 export default App;

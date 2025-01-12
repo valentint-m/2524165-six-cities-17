@@ -1,7 +1,7 @@
 import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
 import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
-import { getUrlById } from '../utils';
+import { getPathById } from '../utils';
 import { Location } from '../types/offer';
 
 type CityCardProps = {
@@ -17,7 +17,7 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
         <span>{offer.isPremium ? 'Premium' : ''}</span>
       </div>
       <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
-        <Link to={getUrlById(offer.id)}>
+        <Link to={getPathById(offer.id)}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location)}/>
         </Link>
       </div>
@@ -41,7 +41,7 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={getUrlById(offer.id)}>{offer.title}</Link>
+          <Link to={getPathById(offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
