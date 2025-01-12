@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import { store } from '../../store';
@@ -18,6 +18,8 @@ function OfferScreen (): JSX.Element {
   const offersNearby: Offer[] = useAppSelector((state) => state.offersNearby);
   const comments: UserComment[] = useAppSelector((state) => state.comments);
   const offers: Offer[] = useAppSelector((state) => state.offers);
+
+  const isAuthorized = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.AUTH);
 
   if (params.id !== offerById.id) {
     store.dispatch(fetchOfferByIdAction(params.id));
@@ -170,7 +172,7 @@ function OfferScreen (): JSX.Element {
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                 <ReviewList userComments={comments} />
-                <FormSubmitComment offerId={params.id}/>
+                {isAuthorized && <FormSubmitComment offerId={params.id}/>}
               </section>
             </div>
           </div>
