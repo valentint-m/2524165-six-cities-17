@@ -8,7 +8,7 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById } from '../utils';
-import { UserComment } from '../types/comment';
+import { UserComment, UserCommentPost } from '../types/comment';
 
 export const fetchOfferByIdAction = createAsyncThunk<void, string | undefined, {
   dispatch: AppDispatch;
@@ -105,5 +105,18 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(ApiRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+  },
+);
+
+export const postCommentAction = createAsyncThunk<void, UserCommentPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postComment',
+  async ({offerId, comment, rating}, {dispatch, extra: api}) => {
+    await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
+    const {data} = await api.get<UserComment[]>(getCommentsUrlById(offerId));
+    dispatch(loadComments(data));
   },
 );

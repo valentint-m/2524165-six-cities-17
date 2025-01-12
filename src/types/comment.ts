@@ -10,3 +10,9 @@ export type UserComment = {
   comment: string;
   rating: number;
 }
+
+export type UserCommentPost = {
+  offerId: string | undefined;
+  comment: string;
+  rating: number;
+}
