@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Offer, OfferById } from '../types/offer';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, SortTypeName } from '../const';
 import { UserComment } from '../types/comment';
 
 const Actions = {
@@ -22,7 +22,7 @@ export const loadOfferById = createAction<OfferById>(Actions.loadOfferById);
 export const loadCityOffers = createAction(Actions.loadCityOffers);
 export const loadNearbyOffers = createAction<Offer[]>(Actions.loadNearbyOffers);
 export const loadComments = createAction<UserComment[]>(Actions.loadComments);
-export const changeSortType = createAction<{sortTypeName: string}>(Actions.changeSortType);
+export const changeSortType = createAction<{sortTypeName: SortTypeName}>(Actions.changeSortType);
 export const sortCityOffers = createAction(Actions.sortCityOffers);
 export const setOffersDataLoadingStatus = createAction<boolean>(Actions.setOffersDataLoadingStatus);
 export const requireAuthorization = createAction<AuthorizationStatus>(Actions.requireAuthorization);
