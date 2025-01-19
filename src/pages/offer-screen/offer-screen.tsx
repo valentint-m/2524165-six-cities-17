@@ -1,21 +1,31 @@
 import { Link, useParams } from 'react-router-dom';
-import { Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
+import { store } from '../../store';
+import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions';
+import { useAppSelector } from '../../hooks';
 import OfferPicture from '../../components/offer-picture';
 import FormSubmitComment from '../../components/form-submit-comment';
 import ReviewList from '../../components/review-list';
-//import Map from '../../components/map';
-//import CityCard from '../../components/city-card';
+import Map from '../../components/map';
+import CityCard from '../../components/city-card';
 
-type OfferScreenProps = {
-  offers: Offer[];
-  userComments: UserComment[];
-}
-
-function OfferScreen ({offers, userComments}: OfferScreenProps): JSX.Element {
+function OfferScreen (): JSX.Element {
   const params = useParams();
-  const offerById = offers.find((offer) => offer.id === params.id) as OfferById;
+
+  const offerById: OfferById = useAppSelector((state) => state.offerById);
+  const offersNearby: Offer[] = useAppSelector((state) => state.offersNearby);
+  const comments: UserComment[] = useAppSelector((state) => state.comments);
+  const offers: Offer[] = useAppSelector((state) => state.offers);
+
+  const isAuthorized = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.AUTH);
+
+  if (params.id !== offerById.id) {
+    store.dispatch(fetchOfferByIdAction(params.id));
+    store.dispatch(fetchCommentsByIdAction(params.id));
+    store.dispatch(fetchNearbyOffersByIdAction(params.id));
+  }
 
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {
@@ -160,21 +170,21 @@ function OfferScreen ({offers, userComments}: OfferScreenProps): JSX.Element {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{userComments.length}</span></h2>
-                <ReviewList userComments={userComments} />
-                <FormSubmitComment />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                <ReviewList userComments={comments} />
+                {isAuthorized && <FormSubmitComment offerId={params.id}/>}
               </section>
             </div>
           </div>
           <section className="offer__map map">
-
+            <Map city={offerById.city} locations={offersNearby.map((offer) => offer.location)} selectedPoint={undefined}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-
+              {offersNearby.map((offer) => <CityCard offer={offer} onHoverOverCard={() => null} isOnMainPage key={offer.id} />)}
             </div>
           </section>
         </div>
@@ -182,7 +192,5 @@ function OfferScreen ({offers, userComments}: OfferScreenProps): JSX.Element {
     </div>
   );
 }
-//{nearbyOffersById.map((offer) => <CityCard offer={offer} onHoverOverCard={() => null} isOnMainPage key={offer.id} />)}
-//<Map city={offerById.city} points={nearbyOffersById.map((offer) => offer.location)} selectedPoint={undefined} />
 
 export default OfferScreen;

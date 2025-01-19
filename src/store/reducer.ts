@@ -1,14 +1,18 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus, SortTypeName } from '../const';
-import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, requireAuthorization } from './actions';
+import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, requireAuthorization, loadNearbyOffers, loadComments, loadOfferById } from './actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
-import { City, Offer } from '../types/offer';
+import { City, Offer, OfferById } from '../types/offer';
+import { UserComment } from '../types/comment';
 
 type State = {
   city: City;
   offers: Offer[];
+  offerById: OfferById;
   offersByCity: Offer[];
   offersByCityDefaultSort: Offer[];
+  offersNearby: Offer[];
+  comments: UserComment[];
   cities: City[];
   sortType: string;
   isOffersDataLoading: boolean;
@@ -25,8 +29,43 @@ const initialState: State = {
     }
   },
   offers: [],
+  offerById: {
+    id: '',
+    title: '',
+    type: '',
+    price: 0,
+    previewImage: '',
+    city: {
+      name: '',
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0,
+      }
+    },
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+    },
+    isFavorite: false,
+    isPremium: false,
+    rating: 0,
+    description: '',
+    bedrooms: 0,
+    goods: [''],
+    host: {
+      name: '',
+      avatarURL: '',
+      isPro: false,
+    },
+    images: [''],
+    maxAdults: 0
+  },
   offersByCity: [],
   offersByCityDefaultSort: [],
+  offersNearby: [],
+  comments: [],
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
@@ -59,6 +98,15 @@ const reducer = createReducer (initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(loadOfferById, (state, action) => {
+      state.offerById = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.offersNearby = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
     });
 });
 

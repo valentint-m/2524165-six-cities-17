@@ -1,6 +1,12 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { postCommentAction } from '../store/api-actions';
+import { store } from '../store';
 
-function FormSubmitComment (): JSX.Element {
+type FormSubmitCommentProps = {
+  offerId: string | undefined;
+}
+
+function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
   const [radioData, setRadioData] = useState([false, false, false, false, false]);
   const [textData, setTextData] = useState('');
 
@@ -17,8 +23,22 @@ function FormSubmitComment (): JSX.Element {
     setRadioData([...radioDataReset]);
   }
 
+  function handleSubmit (evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.currentTarget);
+
+    const comment = formData.get('review') as string | null;
+    const rating = formData.get('rating') as string | null;
+
+    if (comment && rating) {
+      const convertedRating = parseFloat(rating);
+      store.dispatch(postCommentAction({offerId, comment, rating: convertedRating}));
+    }
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" data-id="4" checked={radioData[4]} onChange={handleRadioChange} />
@@ -61,7 +81,7 @@ function FormSubmitComment (): JSX.Element {
         <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
     </form>
   );

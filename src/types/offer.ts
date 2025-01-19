@@ -1,6 +1,6 @@
 type Host = {
-  name: string;
   avatarURL: string;
+  name: string;
   isPro: boolean;
 }
 

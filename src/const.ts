@@ -22,6 +22,8 @@ const ApiRoute = {
   Favorite: '/favorite',
   Login: '/login',
   Logout: '/logout',
+  NearbyOffers: '/nearby',
+  Comments: '/comments',
 };
 
 enum AuthorizationStatus {
