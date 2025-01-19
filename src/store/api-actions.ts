@@ -51,7 +51,7 @@ export const fetchNearbyOffersByIdAction = createAsyncThunk<Offer[], string | un
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchOffers',
+  'data/fetchOffersNearby',
   async (offerId, {extra: api}) => {
     const {data} = await api.get<Offer[]>(getNearbyOffersUrlById(offerId));
     return data;

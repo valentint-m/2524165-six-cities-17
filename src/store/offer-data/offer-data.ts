@@ -110,4 +110,4 @@ export const offerData = createSlice({
   }
 });
 
-export const {changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;
+export const {changeCity, changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;
