@@ -1,8 +1,8 @@
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiRoute, AuthorizationStatus } from '../const';
-import { loadComments, loadNearbyOffers, loadOfferById, loadOffers, requireAuthorization, setOffersDataLoadingStatus } from './actions';
+import { ApiRoute } from '../const';
+import { loadComments, loadNearbyOffers, loadOfferById, loadOffers, setOffersDataLoadingStatus } from './actions';
 import { Offer, OfferById } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -66,19 +66,14 @@ export const fetchNearbyOffersByIdAction = createAsyncThunk<void, string | undef
   },
 );
 
-export const checkAuth = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(ApiRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
-    }
+  async (_arg, {extra: api}) => {
+    await api.get(ApiRoute.Login);
   },
 );
 
@@ -88,10 +83,9 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({email, password}, {dispatch, extra: api}) => {
+  async ({email, password}, {extra: api}) => {
     const {data: {token}} = await api.post<UserData>(ApiRoute.Login, {email, password});
     saveToken(token);
-    dispatch(requireAuthorization(AuthorizationStatus.AUTH));
   },
 );
 
@@ -101,10 +95,9 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, {extra: api}) => {
     await api.delete(ApiRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
   },
 );
 

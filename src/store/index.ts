@@ -12,4 +12,5 @@ export const store = configureStore({
         extraArgument: api,
       },
     }),
+  devTools: true
 });

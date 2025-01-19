@@ -32,7 +32,13 @@ enum AuthorizationStatus {
   UNKNOWN = 'UNKNOWN'
 }
 
+enum NameSpace {
+  DATA = 'DATA',
+  SORT = 'SORT',
+  USER = 'USER',
+}
+
 const RATING_TO_BAR_WIDTH_RATIO = 20;
 
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName, ApiRoute, AuthorizationStatus };
+export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace };
 

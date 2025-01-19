@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { AuthorizationStatus, SortTypeName } from '../const';
-import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, requireAuthorization, loadNearbyOffers, loadComments, loadOfferById } from './actions';
+import { SortTypeName } from '../const';
+import { changeCity, changeSortType, loadOffers, sortCityOffers, loadCityOffers, setOffersDataLoadingStatus, loadNearbyOffers, loadComments, loadOfferById } from './actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../city-selection-logic';
 import { City, Offer, OfferById } from '../types/offer';
 import { UserComment } from '../types/comment';
@@ -16,7 +16,6 @@ type State = {
   cities: City[];
   sortType: string;
   isOffersDataLoading: boolean;
-  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: State = {
@@ -69,7 +68,6 @@ const initialState: State = {
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const reducer = createReducer (initialState, (builder) => {
@@ -95,9 +93,6 @@ const reducer = createReducer (initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     })
     .addCase(loadOfferById, (state, action) => {
       state.offerById = action.payload;
