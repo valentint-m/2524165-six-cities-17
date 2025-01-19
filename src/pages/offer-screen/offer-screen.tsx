@@ -1,25 +1,28 @@
+import { useAppSelector } from '../../hooks';
 import { Link, useParams } from 'react-router-dom';
-import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import { store } from '../../store';
 import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions';
-import { useAppSelector } from '../../hooks';
+import { getComments, getOfferById, getOffers, getOffersNearby } from '../../store/offer-data/offer-data-selectors';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import OfferPicture from '../../components/offer-picture';
 import FormSubmitComment from '../../components/form-submit-comment';
 import ReviewList from '../../components/review-list';
 import Map from '../../components/map';
 import CityCard from '../../components/city-card';
 
+
 function OfferScreen (): JSX.Element {
   const params = useParams();
 
-  const offerById: OfferById = useAppSelector((state) => state.offerById);
-  const offersNearby: Offer[] = useAppSelector((state) => state.offersNearby);
-  const comments: UserComment[] = useAppSelector((state) => state.comments);
-  const offers: Offer[] = useAppSelector((state) => state.offers);
+  const offerById: OfferById = useAppSelector(getOfferById);
+  const offersNearby: Offer[] = useAppSelector(getOffersNearby);
+  const comments: UserComment[] = useAppSelector(getComments);
+  const offers: Offer[] = useAppSelector(getOffers);
 
-  const isAuthorized = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.AUTH);
+  const isAuthorized = useAppSelector(getAuthorizationStatus);
 
   if (params.id !== offerById.id) {
     store.dispatch(fetchOfferByIdAction(params.id));

@@ -34,7 +34,6 @@ enum AuthorizationStatus {
 
 enum NameSpace {
   DATA = 'DATA',
-  SORT = 'SORT',
   USER = 'USER',
 }
 

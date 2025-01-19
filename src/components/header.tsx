@@ -3,13 +3,14 @@ import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
 import { store } from '../store';
 import { logoutAction } from '../store/api-actions';
+import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
 
 type HeaderProps = {
   favoritesCount: number;
 }
 
 export default function Header ({favoritesCount}: HeaderProps): JSX.Element {
-  const isAuthorized = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.AUTH;
+  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
 
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();

@@ -6,12 +6,13 @@ import Map from '../../components/map';
 import CityList from '../../components/city-list';
 import SortTypeList from '../../components/sort-type-list';
 import Header from '../../components/header';
+import { getCity, getOffers, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
 
 function CitiesListScreen (): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
-  const offers: Offer[] = useAppSelector((state) => state.offers);
-  const city = useAppSelector((state) => state.city);
-  const cityOffers: Offer[] = useAppSelector((state) => state.offersByCity);
+  const offers: Offer[] = useAppSelector(getOffers);
+  const city = useAppSelector(getCity);
+  const cityOffers: Offer[] = useAppSelector(getOffersByCity);
 
   function handleCityCardHover ({latitude, longitude}: Location) {
     const currentPoint = cityOffers.find((offer) => offer.location.latitude === latitude && offer.location.longitude === longitude);

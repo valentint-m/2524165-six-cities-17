@@ -4,9 +4,10 @@ import { FormEvent } from 'react';
 import { loginAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 
 function LoginScreen (): JSX.Element {
-  const isLoggedIn = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
 
   function submitHandler (evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
