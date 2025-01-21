@@ -1,8 +1,10 @@
+/* eslint-disable react-refresh/only-export-components */
 import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
 import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
 import { getPathById } from '../utils';
 import { Location } from '../types/offer';
+import React from 'react';
 
 type CityCardProps = {
   offer: Offer;
@@ -49,5 +51,5 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
   );
 }
 
-export default CityCard;
+export default React.memo(CityCard, (prevProps, nextProps) => prevProps.offer.id === nextProps.offer.id);
 
