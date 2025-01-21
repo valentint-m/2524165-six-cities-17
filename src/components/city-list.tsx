@@ -1,9 +1,12 @@
-import City from './city';
+/* eslint-disable react-refresh/only-export-components */
 import { useAppSelector } from '../hooks';
+import { getCities, getCity } from '../store/offer-data/offer-data-selectors';
+import City from './city';
+import React from 'react';
 
-export default function CityList (): JSX.Element {
-  const cityNames = useAppSelector((state) => state.cities).map((city) => city.name);
-  const selectedCity = useAppSelector((state) => state.city.name);
+function CityList (): JSX.Element {
+  const cityNames = useAppSelector(getCities).map((city) => city.name);
+  const selectedCity = useAppSelector(getCity).name;
 
   return (
     <ul className="locations__list tabs__list">
@@ -11,3 +14,5 @@ export default function CityList (): JSX.Element {
     </ul>
   );
 }
+
+export default React.memo(CityList);

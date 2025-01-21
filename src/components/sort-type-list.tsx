@@ -1,23 +1,26 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import SortType from './sort-type';
-import { changeSortType, sortCityOffers } from '../store/actions';
 import { SortTypeName } from '../const';
+import { getSortTypeName } from '../store/offer-data/offer-data-selectors';
+import { offerData } from '../store/offer-data/offer-data';
+import SortType from './sort-type';
+import React from 'react';
 
-export default function SortTypeList (): JSX.Element {
+function SortTypeList (): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedSortType = useAppSelector((state) => state.sortType);
+  const selectedSortType = useAppSelector(getSortTypeName);
   const [isOpened, setOpened] = useState(false);
 
   function handleClick () {
     setOpened(true);
   }
 
-  function handleTypeSelected (sortTypeName: string, isSelected: boolean): void {
+  function handleTypeSelected (sortTypeName: SortTypeName, isSelected: boolean): void {
     setOpened(false);
     if (!isSelected) {
-      dispatch(changeSortType({sortTypeName}));
-      dispatch(sortCityOffers());
+      dispatch(offerData.actions.changeSortType(sortTypeName));
+      dispatch(offerData.actions.sortCityOffers());
     }
   }
 
@@ -36,3 +39,5 @@ export default function SortTypeList (): JSX.Element {
     </form>
   );
 }
+
+export default React.memo(SortTypeList);

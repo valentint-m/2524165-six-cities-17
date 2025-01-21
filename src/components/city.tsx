@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../hooks';
-import { changeCity, loadCityOffers } from '../store/actions';
+import { offerData } from '../store/offer-data/offer-data';
 
 type CityProps = {
   cityName: string;
@@ -11,8 +11,8 @@ export default function City ({cityName, isSelected}: CityProps): JSX.Element {
 
   function handleClick () {
     if (!isSelected) {
-      dispatch(changeCity({cityName}));
-      dispatch(loadCityOffers());
+      dispatch(offerData.actions.changeCity(cityName));
+      dispatch(offerData.actions.loadCityOffers());
     }
   }
 

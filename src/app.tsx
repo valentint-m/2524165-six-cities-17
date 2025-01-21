@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Path } from './const';
 import { useAppSelector } from './hooks';
+import { getOffersByCity, getOffersDataLoadingStatus } from './store/offer-data/offer-data-selectors';
 import CitiesListScreen from './pages/cities-list-screen/cities-list-screen';
 import ErrorScreen from './pages/error-screen/error-screen';
 import LoginScreen from './pages/login-screen/login-screen';
@@ -10,8 +11,8 @@ import PrivateRoute from './components/private-route';
 import LoadingScreen from './pages/loading-screen/loading-screen';
 
 function App (): JSX.Element {
-  const offers = useAppSelector((state) => state.offersByCity);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const offers = useAppSelector(getOffersByCity);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
 
   if (isOffersDataLoading) {
     return (

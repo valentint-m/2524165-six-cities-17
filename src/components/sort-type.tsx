@@ -1,7 +1,9 @@
+import { SortTypeName } from '../const';
+
 type SortTypeProps = {
-  sortTypeName: string;
+  sortTypeName: SortTypeName;
   isSelected: boolean;
-  onTypeSelected: (sortTypeName: string, isSelected: boolean) => void;
+  onTypeSelected: (sortTypeName: SortTypeName, isSelected: boolean) => void;
 }
 
 export default function SortType ({sortTypeName, isSelected, onTypeSelected}: SortTypeProps): JSX.Element {
