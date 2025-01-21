@@ -12,6 +12,7 @@ import FormSubmitComment from '../../components/form-submit-comment';
 import ReviewList from '../../components/review-list';
 import Map from '../../components/map';
 import CityCard from '../../components/city-card';
+import { useEffect } from 'react';
 
 
 function OfferScreen (): JSX.Element {
@@ -24,11 +25,13 @@ function OfferScreen (): JSX.Element {
 
   const isAuthorized = useAppSelector(getAuthorizationStatus);
 
-  if (params.id !== offerById.id) {
-    store.dispatch(fetchOfferByIdAction(params.id));
-    store.dispatch(fetchCommentsByIdAction(params.id));
-    store.dispatch(fetchNearbyOffersByIdAction(params.id));
-  }
+  useEffect(() => {
+    if (params.id !== offerById.id) {
+      store.dispatch(fetchOfferByIdAction(params.id));
+      store.dispatch(fetchCommentsByIdAction(params.id));
+      store.dispatch(fetchNearbyOffersByIdAction(params.id));
+    }
+  }, [params.id, offerById]);
 
   let favoritesCount = 0;
   for (let i = 0; i < offers.length; i++) {

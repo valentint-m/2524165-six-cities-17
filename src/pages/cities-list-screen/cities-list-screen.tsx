@@ -1,12 +1,13 @@
 import { Offer, Location } from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
+import { getCity, getOffers, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
 import CityCard from '../../components/city-card';
 import Map from '../../components/map';
 import CityList from '../../components/city-list';
 import SortTypeList from '../../components/sort-type-list';
 import Header from '../../components/header';
-import { getCity, getOffers, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
+
 
 function CitiesListScreen (): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
