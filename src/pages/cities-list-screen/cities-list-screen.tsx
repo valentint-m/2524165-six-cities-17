@@ -7,8 +7,7 @@ import Map from '../../components/map';
 import CityList from '../../components/city-list';
 import SortTypeList from '../../components/sort-type-list';
 import Header from '../../components/header';
-import NoOffers from '../../components/no-offers';
-
+import NoCityOffers from '../../components/no-city-offers';
 
 function CitiesListScreen (): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
@@ -47,7 +46,7 @@ function CitiesListScreen (): JSX.Element {
               <SortTypeList />
               <div className="cities__places-list places__list tabs__content">
                 {cityOffers.length === 0
-                  ? <NoOffers cityName={city.name} />
+                  ? <NoCityOffers cityName={city.name} />
                   : cityOffers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
 
               </div>

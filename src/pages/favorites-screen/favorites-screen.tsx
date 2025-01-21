@@ -2,6 +2,7 @@ import { Offer } from '../../types/offer';
 import { Path } from '../../const';
 import { Link } from 'react-router-dom';
 import FavoriteCityList from '../../components/favorite-city-list';
+import NoFavoriteOffers from '../../components/no-favorite-offers';
 
 
 type FavoritesScreenProps = {
@@ -47,16 +48,10 @@ function FavoritesScreen ({offers}: FavoritesScreenProps): JSX.Element {
         </div>
       </header>
 
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
+      {favoritesCount === 0
+        ? <NoFavoriteOffers />
+        : <FavoriteCityList offers={offers} />}
 
-            <FavoriteCityList offers={offers} />
-
-          </section>
-        </div>
-      </main>
       <footer className="footer container">
         <Link to={Path.Main} className="footer__logo-link">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />

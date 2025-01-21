@@ -1,8 +1,8 @@
-type NoOffersProps = {
+type NoCityOffersProps = {
   cityName: string;
 }
 
-export default function NoOffers ({cityName}: NoOffersProps): JSX.Element {
+export default function NoCityOffers ({cityName}: NoCityOffersProps): JSX.Element {
   return (
     <>
       <b className="cities__status">No places to stay available</b>
