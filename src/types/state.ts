@@ -18,6 +18,7 @@ export type OfferData = {
   cities: City[];
   sortType: SortTypeName;
   isOffersDataLoading: boolean;
+  hasError: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

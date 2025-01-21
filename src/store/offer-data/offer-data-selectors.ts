@@ -20,3 +20,5 @@ export const getCities = (state: State): City[] => state[NameSpace.DATA].cities;
 export const getSortTypeName = (state: State): SortTypeName => state[NameSpace.DATA].sortType;
 
 export const getOffersDataLoadingStatus = (state: State): boolean => state[NameSpace.DATA].isOffersDataLoading;
+
+export const getErrorStatus = (state: State): boolean => state[NameSpace.DATA].hasError;

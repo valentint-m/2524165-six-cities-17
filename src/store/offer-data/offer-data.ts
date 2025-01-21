@@ -56,6 +56,7 @@ const initialState: OfferData = {
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
+  hasError: false,
 };
 
 export const offerData = createSlice({
@@ -80,6 +81,7 @@ export const offerData = createSlice({
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offers = action.payload;
@@ -89,33 +91,57 @@ export const offerData = createSlice({
         state.offersByCityDefaultSort = state.offersByCity;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(fetchOfferByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOfferByIdAction.fulfilled, (state, action: PayloadAction<OfferById>) => {
         state.offerById = action.payload;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchOfferByIdAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(fetchNearbyOffersByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchNearbyOffersByIdAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offersNearby = action.payload;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchNearbyOffersByIdAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(fetchCommentsByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchCommentsByIdAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(postCommentAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(postCommentAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
         state.isOffersDataLoading = false;
+      })
+      .addCase(postCommentAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
       });
   }
 });
