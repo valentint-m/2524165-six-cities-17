@@ -7,6 +7,7 @@ import Map from '../../components/map';
 import CityList from '../../components/city-list';
 import SortTypeList from '../../components/sort-type-list';
 import Header from '../../components/header';
+import NoOffers from '../../components/no-offers';
 
 
 function CitiesListScreen (): JSX.Element {
@@ -45,8 +46,9 @@ function CitiesListScreen (): JSX.Element {
               <b className="places__found">{cityOffers.length} places to stay in Amsterdam</b>
               <SortTypeList />
               <div className="cities__places-list places__list tabs__content">
-
-                {cityOffers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
+                {cityOffers.length === 0
+                  ? <NoOffers cityName={city.name} />
+                  : cityOffers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
 
               </div>
             </section>
