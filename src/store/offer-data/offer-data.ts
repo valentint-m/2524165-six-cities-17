@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace, SortTypeName } from '../../const';
 import { OfferData } from '../../types/state';
-import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction } from '../api-actions';
+import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
@@ -94,18 +94,28 @@ export const offerData = createSlice({
       })
       .addCase(fetchOfferByIdAction.fulfilled, (state, action: PayloadAction<OfferById>) => {
         state.offerById = action.payload;
+        state.isOffersDataLoading = false;
       })
       .addCase(fetchNearbyOffersByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
       })
       .addCase(fetchNearbyOffersByIdAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offersNearby = action.payload;
+        state.isOffersDataLoading = false;
       })
       .addCase(fetchCommentsByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
       })
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
+        state.isOffersDataLoading = false;
+      })
+      .addCase(postCommentAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+      })
+      .addCase(postCommentAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
+        state.comments = action.payload;
+        state.isOffersDataLoading = false;
       });
   }
 });

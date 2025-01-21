@@ -2,7 +2,6 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute } from '../const';
-import { loadComments } from './actions';
 import { Offer, OfferById } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -93,15 +92,15 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const postCommentAction = createAsyncThunk<void, UserCommentPost, {
+export const postCommentAction = createAsyncThunk<UserComment[], UserCommentPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/postComment',
-  async ({offerId, comment, rating}, {dispatch, extra: api}) => {
+  async ({offerId, comment, rating}, {extra: api}) => {
     await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
     const {data} = await api.get<UserComment[]>(getCommentsUrlById(offerId));
-    dispatch(loadComments(data));
+    return data;
   },
 );
