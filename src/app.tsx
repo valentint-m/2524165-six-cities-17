@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Path } from './const';
+import { AuthorizationStatus, Path } from './const';
 import { useAppSelector } from './hooks';
 import { getErrorStatus, getOffersByCity, getOffersDataLoadingStatus } from './store/offer-data/offer-data-selectors';
+import { getAuthorizationStatus } from './store/user-process/user-process-selectors';
+import { store } from './store';
+import { fetchFavoriteOffersAction } from './store/api-actions';
 import CitiesListScreen from './pages/cities-list-screen/cities-list-screen';
 import ErrorRouteScreen from './pages/error-route-screen/error-route-screen';
 import LoginScreen from './pages/login-screen/login-screen';
@@ -10,11 +13,20 @@ import OfferScreen from './pages/offer-screen/offer-screen';
 import PrivateRoute from './components/private-route';
 import LoadingScreen from './pages/loading-screen/loading-screen';
 import ErrorServerScreen from './pages/error-server-screen/error-server-screen';
+import { useEffect } from 'react';
 
 function App (): JSX.Element {
   const offers = useAppSelector(getOffersByCity);
   const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
   const hasError = useAppSelector(getErrorStatus);
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      store.dispatch(fetchFavoriteOffersAction());
+    }
+  }, [isLoggedIn]);
+
 
   if (isOffersDataLoading) {
     return (
