@@ -5,6 +5,7 @@ import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavorite
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
+import { sortCommentsByNew } from '../../utils';
 
 const initialState: OfferData = {
   city: {
@@ -130,6 +131,7 @@ export const offerData = createSlice({
       })
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
+        state.comments = sortCommentsByNew(state.comments);
         state.isOffersDataLoading = false;
       })
       .addCase(fetchCommentsByIdAction.rejected, (state) => {
