@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace, SortTypeName } from '../../const';
 import { OfferData } from '../../types/state';
-import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
+import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
@@ -52,6 +52,7 @@ const initialState: OfferData = {
   offersByCity: [],
   offersByCityDefaultSort: [],
   offersNearby: [],
+  favoriteOffers: [],
   comments: [],
   cities: [],
   isOffersDataLoading: false,
@@ -140,6 +141,30 @@ export const offerData = createSlice({
         state.isOffersDataLoading = false;
       })
       .addCase(postCommentAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
+        state.favoriteOffers = action.payload;
+        state.isOffersDataLoading = false;
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
+      .addCase(changeOfferFavoriteStatusAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(changeOfferFavoriteStatusAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
+        state.favoriteOffers = action.payload;
+        state.isOffersDataLoading = false;
+      })
+      .addCase(changeOfferFavoriteStatusAction.rejected, (state) => {
         state.isOffersDataLoading = false;
         state.hasError = true;
       });

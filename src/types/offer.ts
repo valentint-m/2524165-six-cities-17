@@ -4,6 +4,11 @@ type Host = {
   isPro: boolean;
 }
 
+export type FavoriteOfferPost = {
+  offerId: string;
+  status: boolean;
+}
+
 export type Location = {
   latitude: number;
   longitude: number;

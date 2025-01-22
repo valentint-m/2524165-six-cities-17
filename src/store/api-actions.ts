@@ -2,11 +2,11 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '../types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute } from '../const';
-import { Offer, OfferById } from '../types/offer';
+import { FavoriteOfferPost, Offer, OfferById } from '../types/offer';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
-import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById } from '../utils';
+import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById, getOfferFavoriteStatusUrl } from '../utils';
 import { UserComment, UserCommentPost } from '../types/comment';
 
 export const fetchOfferByIdAction = createAsyncThunk<OfferById, string | undefined, {
@@ -101,6 +101,31 @@ export const postCommentAction = createAsyncThunk<UserComment[], UserCommentPost
   async ({offerId, comment, rating}, {extra: api}) => {
     await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
     const {data} = await api.get<UserComment[]>(getCommentsUrlById(offerId));
+    return data;
+  },
+);
+
+export const fetchFavoriteOffersAction = createAsyncThunk<Offer[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteOffers',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Offer[]>(ApiRoute.Favorite);
+    return data;
+  },
+);
+
+export const changeOfferFavoriteStatusAction = createAsyncThunk<Offer[], FavoriteOfferPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postComment',
+  async ({offerId, status}, {extra: api}) => {
+    await api.post<Offer>(getOfferFavoriteStatusUrl(offerId, status));
+    const {data} = await api.get<Offer[]>(ApiRoute.Favorite);
     return data;
   },
 );

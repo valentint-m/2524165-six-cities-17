@@ -14,6 +14,7 @@ export type OfferData = {
   offersByCity: Offer[];
   offersByCityDefaultSort: Offer[];
   offersNearby: Offer[];
+  favoriteOffers: Offer[];
   comments: UserComment[];
   cities: City[];
   sortType: SortTypeName;

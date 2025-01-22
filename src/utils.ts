@@ -16,6 +16,10 @@ function getCommentsUrlById (id: string | undefined) {
   return `${ApiRoute.Comments}/${id}`;
 }
 
+function getOfferFavoriteStatusUrl (id: string, status: boolean) {
+  return `${ApiRoute.Favorite}/${id}/${status}`;
+}
+
 function getFormattedDate(date: string): string {
   const formatter = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' });
   const formattedDate = formatter.format(new Date(date));
@@ -23,4 +27,4 @@ function getFormattedDate(date: string): string {
   return formattedDate;
 }
 
-export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getFormattedDate };
+export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate };
