@@ -150,26 +150,18 @@ export const offerData = createSlice({
         state.hasError = true;
       })
       .addCase(fetchFavoriteOffersAction.pending, (state) => {
-        state.isOffersDataLoading = true;
         state.hasError = false;
       })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.favoriteOffers = action.payload;
-        state.isOffersDataLoading = false;
       })
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
-        state.isOffersDataLoading = false;
         state.hasError = true;
       })
       .addCase(changeOfferFavoriteStatusAction.pending, (state) => {
-        state.isOffersDataLoading = true;
         state.hasError = false;
       })
-      .addCase(changeOfferFavoriteStatusAction.fulfilled, (state) => {
-        state.isOffersDataLoading = false;
-      })
       .addCase(changeOfferFavoriteStatusAction.rejected, (state) => {
-        state.isOffersDataLoading = false;
         state.hasError = true;
       });
   }

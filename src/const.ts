@@ -26,6 +26,15 @@ const ApiRoute = {
   Comments: '/comments',
 };
 
+const CityName = {
+  Paris: 'Paris',
+  Cologne: 'Cologne',
+  Brussels: 'Brussels',
+  Amsterdam: 'Amsterdam',
+  Hamburg: 'Hamburg',
+  Dusseldorf: 'Dusseldorf',
+};
+
 enum AuthorizationStatus {
   AUTH = 'AUTH',
   NO_AUTH = 'NO_AUTH',
@@ -42,5 +51,5 @@ const RATING_TO_BAR_WIDTH_RATIO = 20;
 const MIN_REVIEW_LENGTH = 50;
 const MAX_REVIEW_LENGTH = 300;
 
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace };
+export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace, CityName };
 
