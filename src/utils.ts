@@ -16,7 +16,7 @@ function getCommentsUrlById (id: string | undefined) {
   return `${ApiRoute.Comments}/${id}`;
 }
 
-function getOfferFavoriteStatusUrl (id: string, status: boolean) {
+function getOfferFavoriteStatusUrl (id: string, status: number) {
   return `${ApiRoute.Favorite}/${id}/${status}`;
 }
 

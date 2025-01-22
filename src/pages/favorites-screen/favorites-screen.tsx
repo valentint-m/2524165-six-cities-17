@@ -1,14 +1,17 @@
 import { Path } from '../../const';
 import { Link } from 'react-router-dom';
-import FavoriteCityList from '../../components/favorite-city-list';
-import NoFavoriteOffers from '../../components/no-favorite-offers';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
+import FavoriteCityList from '../../components/favorite-city-list';
+import NoFavoriteOffers from '../../components/no-favorite-offers';
 import Header from '../../components/header';
 
 function FavoritesScreen (): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const favoriteOffersCount = favoriteOffers.length;
+
+  const citiesOfFavoriteOffers = new Set<string>();
+  favoriteOffers.forEach((offer) => citiesOfFavoriteOffers.add(offer.city.name));
 
   return (
     <div className="page">
@@ -16,7 +19,7 @@ function FavoritesScreen (): JSX.Element {
 
       {favoriteOffersCount === 0
         ? <NoFavoriteOffers />
-        : <FavoriteCityList offers={favoriteOffers} />}
+        : <FavoriteCityList citiesOfFavoriteOffers={Array.from(citiesOfFavoriteOffers)} />}
 
       <footer className="footer container">
         <Link to={Path.Main} className="footer__logo-link">

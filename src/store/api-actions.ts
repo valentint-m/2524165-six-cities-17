@@ -8,6 +8,7 @@ import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById, getOfferFavoriteStatusUrl } from '../utils';
 import { UserComment, UserCommentPost } from '../types/comment';
+import { store } from '.';
 
 export const fetchOfferByIdAction = createAsyncThunk<OfferById, string | undefined, {
   dispatch: AppDispatch;
@@ -92,7 +93,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const postCommentAction = createAsyncThunk<UserComment[], UserCommentPost, {
+export const postCommentAction = createAsyncThunk<void, UserCommentPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -100,8 +101,7 @@ export const postCommentAction = createAsyncThunk<UserComment[], UserCommentPost
   'data/postComment',
   async ({offerId, comment, rating}, {extra: api}) => {
     await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
-    const {data} = await api.get<UserComment[]>(getCommentsUrlById(offerId));
-    return data;
+    store.dispatch(fetchCommentsByIdAction(offerId));
   },
 );
 
@@ -117,15 +117,16 @@ export const fetchFavoriteOffersAction = createAsyncThunk<Offer[], undefined, {
   },
 );
 
-export const changeOfferFavoriteStatusAction = createAsyncThunk<Offer[], FavoriteOfferPost, {
+export const changeOfferFavoriteStatusAction = createAsyncThunk<void, FavoriteOfferPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/changeOfferFavoriteStatus',
   async ({offerId, status}, {extra: api}) => {
-    await api.post<Offer>(getOfferFavoriteStatusUrl(offerId, status));
-    const {data} = await api.get<Offer[]>(ApiRoute.Favorite);
-    return data;
+    const convertedStatus = status ? 0 : 1;
+    await api.post<Offer>(getOfferFavoriteStatusUrl(offerId, convertedStatus));
+    store.dispatch(fetchOffersAction());
+    store.dispatch(fetchFavoriteOffersAction());
   },
 );

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthorizationStatus, Path } from './const';
 import { useAppSelector } from './hooks';
-import { getErrorStatus, getOffersByCity, getOffersDataLoadingStatus } from './store/offer-data/offer-data-selectors';
+import { getErrorStatus, getOffersDataLoadingStatus } from './store/offer-data/offer-data-selectors';
 import { getAuthorizationStatus } from './store/user-process/user-process-selectors';
 import { store } from './store';
 import { fetchFavoriteOffersAction } from './store/api-actions';
@@ -16,7 +16,6 @@ import ErrorServerScreen from './pages/error-server-screen/error-server-screen';
 import { useEffect } from 'react';
 
 function App (): JSX.Element {
-  const offers = useAppSelector(getOffersByCity);
   const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
   const hasError = useAppSelector(getErrorStatus);
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;

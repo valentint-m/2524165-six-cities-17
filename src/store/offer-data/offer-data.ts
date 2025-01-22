@@ -136,8 +136,7 @@ export const offerData = createSlice({
         state.isOffersDataLoading = true;
         state.hasError = false;
       })
-      .addCase(postCommentAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
-        state.comments = action.payload;
+      .addCase(postCommentAction.fulfilled, (state) => {
         state.isOffersDataLoading = false;
       })
       .addCase(postCommentAction.rejected, (state) => {
@@ -160,8 +159,7 @@ export const offerData = createSlice({
         state.isOffersDataLoading = true;
         state.hasError = false;
       })
-      .addCase(changeOfferFavoriteStatusAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
-        state.favoriteOffers = action.payload;
+      .addCase(changeOfferFavoriteStatusAction.fulfilled, (state) => {
         state.isOffersDataLoading = false;
       })
       .addCase(changeOfferFavoriteStatusAction.rejected, (state) => {
