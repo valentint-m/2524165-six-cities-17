@@ -37,4 +37,10 @@ function sortCommentsByNew(comments: UserComment[]) {
   return sortedComments;
 }
 
-export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate, sortCommentsByNew };
+function getRandomInt(min: number, max: number) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+}
+
+export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate, sortCommentsByNew, getRandomInt };
