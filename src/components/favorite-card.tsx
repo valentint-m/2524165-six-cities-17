@@ -2,12 +2,22 @@ import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
 import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
 import { getPathById } from '../utils';
+import { store } from '../store';
+import { changeOfferFavoriteStatusAction, fetchFavoriteOffersAction } from '../store/api-actions';
 
 type FavoriteCardProps = {
   offer: Offer;
 }
 
 function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
+  const offerId = offer.id;
+  const status = offer.isFavorite;
+
+  function handleFavoriteButtonClick () {
+    store.dispatch(changeOfferFavoriteStatusAction({offerId, status}));
+    store.dispatch(fetchFavoriteOffersAction());
+  }
+
   return (
     <article className="favorites__card place-card">
       <div className="place-card__mark">
@@ -24,7 +34,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button" onClick={() => handleFavoriteButtonClick()}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

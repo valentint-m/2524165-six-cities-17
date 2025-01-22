@@ -11,6 +11,8 @@ export const getOffersByCity = (state: State): Offer[] => state[NameSpace.DATA].
 
 export const getOffersNearby = (state: State): Offer[] => state[NameSpace.DATA].offersNearby;
 
+export const getFavoriteOffers = (state: State): Offer[] => state[NameSpace.DATA].favoriteOffers;
+
 export const getComments = (state: State): UserComment[] => state[NameSpace.DATA].comments;
 
 export const getCity = (state: State): City => state[NameSpace.DATA].city;
@@ -20,3 +22,5 @@ export const getCities = (state: State): City[] => state[NameSpace.DATA].cities;
 export const getSortTypeName = (state: State): SortTypeName => state[NameSpace.DATA].sortType;
 
 export const getOffersDataLoadingStatus = (state: State): boolean => state[NameSpace.DATA].isOffersDataLoading;
+
+export const getErrorStatus = (state: State): boolean => state[NameSpace.DATA].hasError;

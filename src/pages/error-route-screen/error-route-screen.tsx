@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Path } from '../../const';
 
-function ErrorScreen (): JSX.Element {
+function ErrorRouteScreen (): JSX.Element {
   return (
     <>
       <h1>404 Not Found</h1>
@@ -11,4 +11,4 @@ function ErrorScreen (): JSX.Element {
   );
 }
 
-export default ErrorScreen;
+export default ErrorRouteScreen;

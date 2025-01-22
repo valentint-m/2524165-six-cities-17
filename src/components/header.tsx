@@ -4,14 +4,15 @@ import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
 import { store } from '../store';
 import { logoutAction } from '../store/api-actions';
-import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
+import { getAuthorizationStatus, getEmail } from '../store/user-process/user-process-selectors';
+import { getFavoriteOffers } from '../store/offer-data/offer-data-selectors';
 import React from 'react';
 
-type HeaderProps = {
-  favoritesCount: number;
-}
+function Header (): JSX.Element {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffersCount = favoriteOffers.length;
 
-function Header ({favoritesCount}: HeaderProps): JSX.Element {
+  const email = useAppSelector(getEmail);
   const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
 
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
@@ -24,9 +25,9 @@ function Header ({favoritesCount}: HeaderProps): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link header__logo-link--active">
+            <Link to={Path.Main} className="header__logo-link header__logo-link--active">
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-            </a>
+            </Link>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
@@ -37,8 +38,8 @@ function Header ({favoritesCount}: HeaderProps): JSX.Element {
 
                   {isAuthorized ? (
                     <div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">{favoritesCount}</span>
+                      <span className="header__user-name user__name">{email}</span>
+                      <span className="header__favorite-count">{favoriteOffersCount}</span>
                     </div>
                   ) : (
                     <span className="header__login">Sign in</span>

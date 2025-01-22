@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { postCommentAction } from '../store/api-actions';
 import { store } from '../store';
+import { MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH } from '../const';
 
 type FormSubmitCommentProps = {
   offerId: string | undefined;
@@ -9,6 +10,8 @@ type FormSubmitCommentProps = {
 function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
   const [radioData, setRadioData] = useState([false, false, false, false, false]);
   const [textData, setTextData] = useState('');
+
+  const isSubmitButtonActive: boolean = radioData.some((radioValue) => radioValue === true) && textData.length >= MIN_REVIEW_LENGTH && textData.length <= MAX_REVIEW_LENGTH;
 
   function handleTextChange (event: ChangeEvent<HTMLTextAreaElement>) {
     setTextData(event.target.value);
@@ -76,12 +79,12 @@ function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextChange} value={textData}>{textData}</textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextChange} value={textData} minLength={MIN_REVIEW_LENGTH} maxLength={MAX_REVIEW_LENGTH}>{textData}</textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isSubmitButtonActive}>Submit</button>
       </div>
     </form>
   );

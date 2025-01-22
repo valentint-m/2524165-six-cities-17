@@ -1,17 +1,16 @@
 import { Offer, Location } from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
-import { getCity, getOffers, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
+import { getCity, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
 import CityCard from '../../components/city-card';
 import Map from '../../components/map';
 import CityList from '../../components/city-list';
 import SortTypeList from '../../components/sort-type-list';
 import Header from '../../components/header';
-
+import NoCityOffers from '../../components/no-city-offers';
 
 function CitiesListScreen (): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
-  const offers: Offer[] = useAppSelector(getOffers);
   const city = useAppSelector(getCity);
   const cityOffers: Offer[] = useAppSelector(getOffersByCity);
 
@@ -21,16 +20,9 @@ function CitiesListScreen (): JSX.Element {
     setSelectedPoint(currentPoint?.location);
   }
 
-  let favoritesCount = 0;
-  for (let i = 0; i < offers.length; i++) {
-    if (offers[i].isFavorite) {
-      favoritesCount++;
-    }
-  }
-
   return (
     <div className="page page--gray page--main">
-      <Header favoritesCount={favoritesCount} />
+      <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -42,11 +34,12 @@ function CitiesListScreen (): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cityOffers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{cityOffers.length} places to stay in {city.name}</b>
               <SortTypeList />
               <div className="cities__places-list places__list tabs__content">
-
-                {cityOffers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
+                {cityOffers.length === 0
+                  ? <NoCityOffers cityName={city.name} />
+                  : cityOffers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} isOnMainPage key={offer.id} />)}
 
               </div>
             </section>

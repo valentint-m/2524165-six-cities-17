@@ -4,6 +4,7 @@ import { UserComment } from './comment.js';
 import { City, Offer, OfferById } from './offer.js';
 
 export type UserProcess = {
+  email: string;
   authorizationStatus: AuthorizationStatus;
 };
 
@@ -14,10 +15,12 @@ export type OfferData = {
   offersByCity: Offer[];
   offersByCityDefaultSort: Offer[];
   offersNearby: Offer[];
+  favoriteOffers: Offer[];
   comments: UserComment[];
   cities: City[];
   sortType: SortTypeName;
   isOffersDataLoading: boolean;
+  hasError: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

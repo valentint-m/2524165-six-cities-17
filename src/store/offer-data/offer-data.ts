@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace, SortTypeName } from '../../const';
 import { OfferData } from '../../types/state';
-import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
+import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
 import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
+import { sortCommentsByNew } from '../../utils';
 
 const initialState: OfferData = {
   city: {
@@ -52,16 +53,23 @@ const initialState: OfferData = {
   offersByCity: [],
   offersByCityDefaultSort: [],
   offersNearby: [],
+  favoriteOffers: [],
   comments: [],
   cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
+  hasError: false,
 };
 
 export const offerData = createSlice({
   name: NameSpace.DATA,
   initialState,
   reducers: {
+    setDefaultCity: (state) => {
+      state.city = state.cities[0];
+      state.offersByCity = getOffersByCity(state.offers, state.city.name);
+      state.offersByCityDefaultSort = state.offersByCity;
+    },
     changeCity: (state, action: PayloadAction<string>) => {
       state.city = getCityByName(state.cities, action.payload);
     },
@@ -80,44 +88,91 @@ export const offerData = createSlice({
     builder
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offers = action.payload;
         state.cities = getCitiesInfo(state.offers);
-        state.city = state.cities[0];
         state.offersByCity = getOffersByCity(state.offers, state.city.name);
         state.offersByCityDefaultSort = state.offersByCity;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(fetchOfferByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchOfferByIdAction.fulfilled, (state, action: PayloadAction<OfferById>) => {
         state.offerById = action.payload;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchOfferByIdAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(fetchNearbyOffersByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchNearbyOffersByIdAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offersNearby = action.payload;
         state.isOffersDataLoading = false;
       })
+      .addCase(fetchNearbyOffersByIdAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
       .addCase(fetchCommentsByIdAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
+        state.comments = sortCommentsByNew(state.comments);
         state.isOffersDataLoading = false;
+      })
+      .addCase(fetchCommentsByIdAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
       })
       .addCase(postCommentAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.hasError = false;
       })
-      .addCase(postCommentAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
-        state.comments = action.payload;
+      .addCase(postCommentAction.fulfilled, (state) => {
         state.isOffersDataLoading = false;
+      })
+      .addCase(postCommentAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
+        state.favoriteOffers = action.payload;
+        state.isOffersDataLoading = false;
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
+      })
+      .addCase(changeOfferFavoriteStatusAction.pending, (state) => {
+        state.isOffersDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(changeOfferFavoriteStatusAction.fulfilled, (state) => {
+        state.isOffersDataLoading = false;
+      })
+      .addCase(changeOfferFavoriteStatusAction.rejected, (state) => {
+        state.isOffersDataLoading = false;
+        state.hasError = true;
       });
   }
 });
 
-export const {changeCity, changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;
+export const {setDefaultCity, changeCity, changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;
