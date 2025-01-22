@@ -8,10 +8,10 @@ import { getAuthorizationStatus } from '../store/user-process/user-process-selec
 import React from 'react';
 
 type HeaderProps = {
-  favoritesCount: number;
+  favoriteOffersCount: number;
 }
 
-function Header ({favoritesCount}: HeaderProps): JSX.Element {
+function Header ({favoriteOffersCount}: HeaderProps): JSX.Element {
   const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
 
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
@@ -38,7 +38,7 @@ function Header ({favoritesCount}: HeaderProps): JSX.Element {
                   {isAuthorized ? (
                     <div>
                       <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">{favoritesCount}</span>
+                      <span className="header__favorite-count">{favoriteOffersCount}</span>
                     </div>
                   ) : (
                     <span className="header__login">Sign in</span>

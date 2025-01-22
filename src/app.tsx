@@ -46,7 +46,7 @@ function App (): JSX.Element {
         <Route path={Path.Login} element={<LoginScreen />} />
         <Route path={Path.Favorites} element={
           <PrivateRoute>
-            <FavoritesScreen offers={offers} />
+            <FavoritesScreen />
           </PrivateRoute>
         }
         />

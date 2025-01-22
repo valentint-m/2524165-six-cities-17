@@ -11,7 +11,7 @@ import NoCityOffers from '../../components/no-city-offers';
 
 function CitiesListScreen (): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
-  const favoriteOffers: Offer[] = useAppSelector(getFavoriteOffers);
+  const favoriteOffersCount = useAppSelector(getFavoriteOffers).length;
   const city = useAppSelector(getCity);
   const cityOffers: Offer[] = useAppSelector(getOffersByCity);
 
@@ -23,7 +23,7 @@ function CitiesListScreen (): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header favoritesCount={favoriteOffers.length} />
+      <Header favoriteOffersCount={favoriteOffersCount} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
