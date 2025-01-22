@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { store } from '../store';
 import { logoutAction } from '../store/api-actions';
 import { getAuthorizationStatus, getEmail } from '../store/user-process/user-process-selectors';
+import { getFavoriteOffers } from '../store/offer-data/offer-data-selectors';
 import React from 'react';
 
-type HeaderProps = {
-  favoriteOffersCount: number;
-}
+function Header (): JSX.Element {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffersCount = favoriteOffers.length;
 
-function Header ({favoriteOffersCount}: HeaderProps): JSX.Element {
   const email = useAppSelector(getEmail);
   const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
 

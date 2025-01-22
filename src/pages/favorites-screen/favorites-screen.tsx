@@ -15,7 +15,7 @@ function FavoritesScreen (): JSX.Element {
 
   return (
     <div className="page">
-      <Header favoriteOffersCount={favoriteOffersCount} />
+      <Header />
 
       {favoriteOffersCount === 0
         ? <NoFavoriteOffers />

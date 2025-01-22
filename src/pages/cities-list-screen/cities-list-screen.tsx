@@ -1,7 +1,7 @@
 import { Offer, Location } from '../../types/offer';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
-import { getCity, getFavoriteOffers, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
+import { getCity, getOffersByCity } from '../../store/offer-data/offer-data-selectors';
 import CityCard from '../../components/city-card';
 import Map from '../../components/map';
 import CityList from '../../components/city-list';
@@ -11,7 +11,6 @@ import NoCityOffers from '../../components/no-city-offers';
 
 function CitiesListScreen (): JSX.Element {
   const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
-  const favoriteOffersCount = useAppSelector(getFavoriteOffers).length;
   const city = useAppSelector(getCity);
   const cityOffers: Offer[] = useAppSelector(getOffersByCity);
 
@@ -23,7 +22,7 @@ function CitiesListScreen (): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header favoriteOffersCount={favoriteOffersCount} />
+      <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

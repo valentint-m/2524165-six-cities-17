@@ -1,18 +1,19 @@
 import { useAppSelector } from '../../hooks';
-import { Link, useParams } from 'react-router-dom';
-import { Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
-import { Offer, OfferById } from '../../types/offer';
+import { useParams } from 'react-router-dom';
+import { RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { Location, Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import { store } from '../../store';
 import { fetchCommentsByIdAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions';
-import { getComments, getOfferById, getOffers, getOffersNearby } from '../../store/offer-data/offer-data-selectors';
+import { getComments, getOfferById, getOffersNearby } from '../../store/offer-data/offer-data-selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import { useEffect } from 'react';
 import OfferPicture from '../../components/offer-picture';
 import FormSubmitComment from '../../components/form-submit-comment';
 import ReviewList from '../../components/review-list';
 import Map from '../../components/map';
 import CityCard from '../../components/city-card';
-import { useEffect } from 'react';
+import Header from '../../components/header';
 
 
 function OfferScreen (): JSX.Element {
@@ -21,9 +22,22 @@ function OfferScreen (): JSX.Element {
   const offerById: OfferById = useAppSelector(getOfferById);
   const offersNearby: Offer[] = useAppSelector(getOffersNearby);
   const comments: UserComment[] = useAppSelector(getComments);
-  const offers: Offer[] = useAppSelector(getOffers);
-
   const isAuthorized = useAppSelector(getAuthorizationStatus);
+
+  function getOffersForMap () {
+    if (offersNearby.length === 0) {
+      return [];
+    }
+    const offersForMap = new Array<Location>(4);
+    for (let i = 0; i < offersForMap.length; i++) {
+      if (i === 0) {
+        offersForMap[i] = offerById.location;
+      } else {
+        offersForMap[i] = offersNearby[i - 1].location;
+      }
+    }
+    return offersForMap;
+  }
 
   useEffect(() => {
     if (params.id !== offerById.id) {
@@ -33,44 +47,9 @@ function OfferScreen (): JSX.Element {
     }
   }, [params.id, offerById]);
 
-  let favoritesCount = 0;
-  for (let i = 0; i < offers.length; i++) {
-    if (offers[i].isFavorite) {
-      favoritesCount++;
-    }
-  }
-
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link to={Path.Main} className="header__logo-link">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <Link to={Path.Favorites} className="header__nav-link header__nav-link--profile">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">{favoritesCount}</span>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link to={Path.Main} className="header__nav-link">
-                    <span className="header__signout">Sign out</span>
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
-
+      <Header />
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -183,7 +162,7 @@ function OfferScreen (): JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={offerById.city} locations={offersNearby.map((offer) => offer.location)} selectedPoint={undefined}/>
+            <Map city={offerById.city} locations={getOffersForMap()} selectedPoint={offerById.location}/>
           </section>
         </section>
         <div className="container">
