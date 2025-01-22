@@ -39,5 +39,8 @@ enum NameSpace {
 
 const RATING_TO_BAR_WIDTH_RATIO = 20;
 
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace };
+const MIN_REVIEW_LENGTH = 50;
+const MAX_REVIEW_LENGTH = 300;
+
+export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace };
 
