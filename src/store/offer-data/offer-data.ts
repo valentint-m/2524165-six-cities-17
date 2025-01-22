@@ -64,6 +64,11 @@ export const offerData = createSlice({
   name: NameSpace.DATA,
   initialState,
   reducers: {
+    setDefaultCity: (state) => {
+      state.city = state.cities[0];
+      state.offersByCity = getOffersByCity(state.offers, state.city.name);
+      state.offersByCityDefaultSort = state.offersByCity;
+    },
     changeCity: (state, action: PayloadAction<string>) => {
       state.city = getCityByName(state.cities, action.payload);
     },
@@ -87,7 +92,6 @@ export const offerData = createSlice({
       .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offers = action.payload;
         state.cities = getCitiesInfo(state.offers);
-        state.city = state.cities[0];
         state.offersByCity = getOffersByCity(state.offers, state.city.name);
         state.offersByCityDefaultSort = state.offersByCity;
         state.isOffersDataLoading = false;
@@ -169,4 +173,4 @@ export const offerData = createSlice({
   }
 });
 
-export const {changeCity, changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;
+export const {setDefaultCity, changeCity, changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;

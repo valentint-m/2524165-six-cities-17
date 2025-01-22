@@ -1,11 +1,12 @@
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { fetchOffersAction, checkAuthAction } from './store/api-actions';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app';
-import { fetchOffersAction, checkAuthAction } from './store/api-actions';
+import { setDefaultCity } from './store/offer-data/offer-data';
 
-store.dispatch(fetchOffersAction());
+Promise.all([store.dispatch(fetchOffersAction())]).then(() => store.dispatch(setDefaultCity()));
 store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(

@@ -58,26 +58,29 @@ export const fetchNearbyOffersByIdAction = createAsyncThunk<Offer[], string | un
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<string, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    await api.get(ApiRoute.Login);
+    const {data} = await api.get<UserData>(ApiRoute.Login);
+    return data.email;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({email, password}, {extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(ApiRoute.Login, {email, password});
-    saveToken(token);
+    const {data} = await api.post<UserData>(ApiRoute.Login, {email, password});
+    saveToken(data.token);
+    store.dispatch(fetchOffersAction());
+    return data.email;
   },
 );
 
@@ -90,6 +93,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {extra: api}) => {
     await api.delete(ApiRoute.Logout);
     dropToken();
+    store.dispatch(fetchOffersAction());
   },
 );
 

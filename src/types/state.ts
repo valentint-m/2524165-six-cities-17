@@ -4,6 +4,7 @@ import { UserComment } from './comment.js';
 import { City, Offer, OfferById } from './offer.js';
 
 export type UserProcess = {
+  email: string;
   authorizationStatus: AuthorizationStatus;
 };
 
