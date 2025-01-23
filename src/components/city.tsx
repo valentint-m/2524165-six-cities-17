@@ -1,8 +1,9 @@
+import { CityName } from '../const';
 import { useAppDispatch } from '../hooks';
 import { offerData } from '../store/offer-data/offer-data';
 
 type CityProps = {
-  cityName: string;
+  cityName: CityName;
   isSelected: boolean;
 }
 

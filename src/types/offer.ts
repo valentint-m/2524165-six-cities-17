@@ -1,3 +1,5 @@
+import { CityName } from '../const';
+
 type Host = {
   avatarURL: string;
   name: string;
@@ -16,7 +18,7 @@ export type Location = {
 }
 
 export type City = {
-  name: string;
+  name: CityName;
   location: Location;
 }
 

@@ -18,7 +18,7 @@ import { useEffect } from 'react';
 function App (): JSX.Element {
   const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
   const hasError = useAppSelector(getErrorStatus);
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (isLoggedIn) {

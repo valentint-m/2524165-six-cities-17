@@ -20,7 +20,7 @@ type CityCardProps = {
 
 function CityCard ({offer, isOnMainPage, onHoverOverCard, onLeaveCard}: CityCardProps): JSX.Element {
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const offerId = offer.id;
   const status = offer.isFavorite;
 

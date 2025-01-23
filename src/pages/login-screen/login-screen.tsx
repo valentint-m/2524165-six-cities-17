@@ -12,7 +12,7 @@ import { offerData } from '../../store/offer-data/offer-data';
 function LoginScreen (): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const isLoggingOut = useAppSelector(getLoggingOutStatus);
   const cities = useAppSelector(getCities);
   const randomCity = cities[getRandomInt(0, cities.length - 1)].name;

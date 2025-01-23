@@ -8,7 +8,7 @@ type PrivateRouteProps = {
 };
 
 function PrivateRoute ({children }: PrivateRouteProps): JSX.Element {
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   return isLoggedIn ? children : <Navigate to={Path.Login} />;
 }

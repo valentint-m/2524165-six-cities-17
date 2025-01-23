@@ -25,7 +25,7 @@ function OfferScreen (): JSX.Element {
   const offerById: OfferById = useAppSelector(getOfferById);
   const offersNearby: Offer[] = useAppSelector(getOffersNearby);
   const comments: UserComment[] = useAppSelector(getComments);
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   function handleFavoriteButtonClick () {
     if (isLoggedIn) {

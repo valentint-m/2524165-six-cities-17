@@ -1,7 +1,8 @@
+import { CityName } from '../const';
 import FavoriteCity from './favorite-city';
 
 type FavoriteCityListProps = {
-  citiesOfFavoriteOffers: string[];
+  citiesOfFavoriteOffers: CityName[];
 }
 
 function FavoriteCityList ({citiesOfFavoriteOffers}: FavoriteCityListProps): JSX.Element {

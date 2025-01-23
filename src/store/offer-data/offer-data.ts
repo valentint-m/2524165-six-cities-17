@@ -24,7 +24,7 @@ const initialState: OfferData = {
     price: 0,
     previewImage: '',
     city: {
-      name: '',
+      name: CityName.Paris,
       location: {
         latitude: 0,
         longitude: 0,
@@ -63,7 +63,7 @@ const initialState: OfferData = {
 };
 
 export const offerData = createSlice({
-  name: NameSpace.DATA,
+  name: NameSpace.Data,
   initialState,
   reducers: {
     setDefaultCity: (state) => {
@@ -76,7 +76,7 @@ export const offerData = createSlice({
         state.city.name = CityName.Paris;
       }
     },
-    changeCity: (state, action: PayloadAction<string>) => {
+    changeCity: (state, action: PayloadAction<CityName>) => {
       state.city.name = action.payload;
       state.city.location = getCityLocationByName(state.cities, action.payload);
     },

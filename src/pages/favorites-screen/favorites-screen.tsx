@@ -1,4 +1,4 @@
-import { Path } from '../../const';
+import { CityName, Path } from '../../const';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
@@ -10,7 +10,7 @@ function FavoritesScreen (): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const favoriteOffersCount = favoriteOffers.length;
 
-  const citiesOfFavoriteOffers = new Set<string>();
+  const citiesOfFavoriteOffers = new Set<CityName>();
   favoriteOffers.forEach((offer) => citiesOfFavoriteOffers.add(offer.city.name));
 
   return (

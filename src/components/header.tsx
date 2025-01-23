@@ -18,7 +18,7 @@ function Header ({isClosedPage}: HeaderProps): JSX.Element {
   const favoriteOffersCount = favoriteOffers.length;
 
   const email = useAppSelector(getEmail);
-  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();
