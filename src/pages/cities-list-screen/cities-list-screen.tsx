@@ -4,11 +4,11 @@ import { getCity, getOffersByCity } from '../../store/offer-data/offer-data-sele
 import { store } from '../../store';
 import { offerData } from '../../store/offer-data/offer-data';
 import { useEffect } from 'react';
+import { CityName } from '../../const';
 import CityList from '../../components/city-list';
 import Header from '../../components/header';
 import NoCityOffers from '../../components/no-city-offers';
 import CityOffersList from '../../components/city-offers-list';
-import { CityName } from '../../const';
 
 function CitiesListScreen (): JSX.Element {
   const city = useAppSelector(getCity);

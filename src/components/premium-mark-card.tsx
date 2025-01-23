@@ -1,4 +1,4 @@
-export default function PremiumMark () {
+export default function PremiumMarkCard () {
   return (
     <div className="place-card__mark">
       <span>Premium</span>

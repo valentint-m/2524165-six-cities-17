@@ -3,7 +3,6 @@ import { useState } from 'react';
 import CityCard from './city-card';
 import SortTypeList from './sort-type-list';
 import Map from './map';
-import React from 'react';
 
 type CityOffersListProps = {
   cityOffers: Offer[];

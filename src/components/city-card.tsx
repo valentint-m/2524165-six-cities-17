@@ -4,12 +4,12 @@ import { Offer } from '../types/offer';
 import { Link, useNavigate } from 'react-router-dom';
 import { getPathById } from '../utils';
 import { Location } from '../types/offer';
-import React from 'react';
 import { changeOfferFavoriteStatusAction, fetchFavoriteOffersAction } from '../store/api-actions';
 import { store } from '../store';
 import { useAppSelector } from '../hooks';
 import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
-import PremiumMark from './premium-mark';
+import PremiumMarkCard from './premium-mark-card';
+import React from 'react';
 
 type CityCardProps = {
   offer: Offer;
@@ -36,7 +36,7 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard, onLeaveCard}: CityCard
   return (
     <article className={`${isOnMainPage ? 'cities__card' : 'near-places__card'} place-card`} >
 
-      {offer.isPremium && <PremiumMark />}
+      {offer.isPremium && <PremiumMarkCard />}
 
       <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
         <Link to={getPathById(offer.id)}>

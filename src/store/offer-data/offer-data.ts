@@ -127,10 +127,8 @@ export const offerData = createSlice({
       })
       .addCase(fetchNearbyOffersByIdAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offersNearby = action.payload;
-        state.isOffersDataLoading = false;
       })
       .addCase(fetchNearbyOffersByIdAction.rejected, (state) => {
-        state.isOffersDataLoading = false;
         state.hasError = true;
       })
       .addCase(fetchCommentsByIdAction.pending, (state) => {
@@ -140,10 +138,8 @@ export const offerData = createSlice({
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
         state.comments = sortCommentsByNew(state.comments);
-        state.isOffersDataLoading = false;
       })
       .addCase(fetchCommentsByIdAction.rejected, (state) => {
-        state.isOffersDataLoading = false;
         state.hasError = true;
       })
       .addCase(postCommentAction.pending, (state) => {
@@ -154,7 +150,6 @@ export const offerData = createSlice({
         state.isOffersDataLoading = false;
       })
       .addCase(postCommentAction.rejected, (state) => {
-        state.isOffersDataLoading = false;
         state.hasError = true;
       })
       .addCase(fetchFavoriteOffersAction.pending, (state) => {

@@ -132,5 +132,6 @@ export const changeOfferFavoriteStatusAction = createAsyncThunk<void, FavoriteOf
     await api.post<Offer>(getOfferFavoriteStatusUrl(offerId, convertedStatus));
     store.dispatch(fetchOffersAction());
     store.dispatch(fetchFavoriteOffersAction());
+    store.dispatch(fetchOfferByIdAction(offerId));
   },
 );
