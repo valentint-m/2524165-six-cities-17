@@ -1,6 +1,6 @@
 import { store } from './store';
 import { Provider } from 'react-redux';
-import { fetchOffersAction, checkAuthAction } from './store/api-actions';
+import { fetchOffersAction, checkAuthAction } from './store/api-actions/api-actions';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app';

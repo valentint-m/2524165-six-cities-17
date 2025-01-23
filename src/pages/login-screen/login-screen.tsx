@@ -1,12 +1,12 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
 import { FormEvent } from 'react';
-import { loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/api-actions/api-actions';
 import { store } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus, getLoggingOutStatus } from '../../store/user-process/user-process-selectors';
 import { getCities } from '../../store/offer-data/offer-data-selectors';
-import { getRandomInt } from '../../utils';
+import { getRandomInt } from '../../utils/utils';
 import { offerData } from '../../store/offer-data/offer-data';
 
 function LoginScreen (): JSX.Element {

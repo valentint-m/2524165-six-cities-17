@@ -1,14 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
-import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../const';
-import { Offer } from '../types/offer';
+import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { Offer } from '../../types/offer';
 import { Link, useNavigate } from 'react-router-dom';
-import { getPathById } from '../utils';
-import { Location } from '../types/offer';
-import { changeOfferFavoriteStatusAction } from '../store/api-actions';
-import { store } from '../store';
-import { useAppSelector } from '../hooks';
-import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
-import PremiumMarkCard from './premium-mark-card';
+import { getPathById } from '../../utils/utils';
+import { Location } from '../../types/offer';
+import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
+import { store } from '../../store';
+import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import PremiumMarkCard from '../premium-mark-card/premium-mark-card';
 import React from 'react';
 
 type CityCardProps = {

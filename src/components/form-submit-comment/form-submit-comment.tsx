@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { postCommentAction } from '../store/api-actions';
-import { store } from '../store';
-import { MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH } from '../const';
-import { useAppSelector } from '../hooks';
-import { getSubmittingStatus } from '../store/offer-data/offer-data-selectors';
+import { postCommentAction } from '../../store/api-actions/api-actions';
+import { store } from '../../store';
+import { MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getSubmittingStatus } from '../../store/offer-data/offer-data-selectors';
 
 type FormSubmitCommentProps = {
   offerId: string | undefined;

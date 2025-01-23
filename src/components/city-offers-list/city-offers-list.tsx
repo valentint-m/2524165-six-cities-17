@@ -1,8 +1,8 @@
-import { City, Location, Offer } from '../types/offer';
+import { City, Location, Offer } from '../../types/offer';
 import { useState } from 'react';
 import CityCard from './city-card';
-import SortTypeList from './sort-type-list';
-import Map from './map';
+import SortTypeList from '../sort-type-list/sort-type-list';
+import Map from '../map/map';
 
 type CityOffersListProps = {
   cityOffers: Offer[];

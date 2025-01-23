@@ -1,9 +1,9 @@
-import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
-import { Offer } from '../types/offer';
+import { RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { getPathById } from '../utils';
-import { store } from '../store';
-import { changeOfferFavoriteStatusAction } from '../store/api-actions';
+import { getPathById } from '../../utils/utils';
+import { store } from '../../store';
+import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
 
 type FavoriteCardProps = {
   offer: Offer;

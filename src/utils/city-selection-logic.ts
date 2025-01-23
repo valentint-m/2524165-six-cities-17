@@ -1,5 +1,5 @@
-import { CityName, SortTypeName } from './const';
-import { City, Location, Offer } from './types/offer';
+import { CityName, SortTypeName } from '../const';
+import { City, Location, Offer } from '../types/offer';
 
 function getCitiesInfo (offers: Offer[]) {
   const cityNames = new Set<CityName>();

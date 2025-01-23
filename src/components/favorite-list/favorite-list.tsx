@@ -1,11 +1,11 @@
-import { CityName } from '../const';
+import { CityName } from '../../const';
 import FavoriteCity from './favorite-city';
 
 type FavoriteCityListProps = {
   citiesOfFavoriteOffers: CityName[];
 }
 
-function FavoriteCityList ({citiesOfFavoriteOffers}: FavoriteCityListProps): JSX.Element {
+function FavoriteList ({citiesOfFavoriteOffers}: FavoriteCityListProps): JSX.Element {
   return (
     <main className="page__main page__main--favorites">
       <section className="favorites">
@@ -18,4 +18,4 @@ function FavoriteCityList ({citiesOfFavoriteOffers}: FavoriteCityListProps): JSX
   );
 }
 
-export default FavoriteCityList;
+export default FavoriteList;

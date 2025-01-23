@@ -4,18 +4,18 @@ import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../cons
 import { Location, Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import { store } from '../../store';
-import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions';
+import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions/api-actions';
 import { getComments, getOfferById, getOffersNearby } from '../../store/offer-data/offer-data-selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import { useEffect } from 'react';
-import OfferPicture from '../../components/offer-picture';
-import FormSubmitComment from '../../components/form-submit-comment';
-import ReviewList from '../../components/review-list';
-import Map from '../../components/map';
-import CityCard from '../../components/city-card';
-import Header from '../../components/header';
-import PremiumMarkOffer from '../../components/premium-mark-offer';
-import OfferGoodItem from '../../components/offer-good-item';
+import OfferPicture from '../../components/offer-picture/offer-picture';
+import FormSubmitComment from '../../components/form-submit-comment/form-submit-comment';
+import ReviewList from '../../components/review-list/review-list';
+import Map from '../../components/map/map';
+import CityCard from '../../components/city-offers-list/city-card';
+import Header from '../../components/header/header';
+import PremiumMarkOffer from '../../components/premium-mark-offer/premium-mark-offer';
+import OfferGoodItem from '../../components/offer-good-item/offer-good-item';
 
 
 function OfferScreen (): JSX.Element {

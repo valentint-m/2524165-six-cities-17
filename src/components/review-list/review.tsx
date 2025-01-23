@@ -1,6 +1,6 @@
-import { UserComment } from '../types/comment';
-import { getFormattedDate } from '../utils';
-import { RATING_TO_BAR_WIDTH_RATIO } from '../const';
+import { UserComment } from '../../types/comment';
+import { getFormattedDate } from '../../utils/utils';
+import { RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 
 type ReviewProps = {
   userComment: UserComment;

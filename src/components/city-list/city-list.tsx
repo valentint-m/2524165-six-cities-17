@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import { CityName } from '../const';
-import { useAppSelector } from '../hooks';
-import { getCity } from '../store/offer-data/offer-data-selectors';
+import { CityName } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getCity } from '../../store/offer-data/offer-data-selectors';
 import City from './city';
 import React from 'react';
 

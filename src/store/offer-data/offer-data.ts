@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CityName, NameSpace, SortTypeName } from '../../const';
 import { OfferData } from '../../types/state';
-import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
-import { getCitiesInfo, getCityLocationByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
+import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions/api-actions';
+import { getCitiesInfo, getCityLocationByName, getOffersByCity, sortCityOffersByType } from '../../utils/city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
-import { sortCommentsByNew } from '../../utils';
+import { sortCommentsByNew } from '../../utils/comment-sort-logic';
 
 const initialState: OfferData = {
   city: {

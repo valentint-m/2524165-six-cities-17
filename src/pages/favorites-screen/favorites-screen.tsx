@@ -2,9 +2,9 @@ import { CityName, Path } from '../../const';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
-import FavoriteCityList from '../../components/favorite-city-list';
-import NoFavoriteOffers from '../../components/no-favorite-offers';
-import Header from '../../components/header';
+import FavoriteList from '../../components/favorite-list/favorite-list';
+import NoFavoriteOffers from '../../components/no-favorite-offers/no-favorite-offers';
+import Header from '../../components/header/header';
 
 function FavoritesScreen (): JSX.Element {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
@@ -19,7 +19,7 @@ function FavoritesScreen (): JSX.Element {
 
       {favoriteOffersCount === 0
         ? <NoFavoriteOffers />
-        : <FavoriteCityList citiesOfFavoriteOffers={Array.from(citiesOfFavoriteOffers)} />}
+        : <FavoriteList citiesOfFavoriteOffers={Array.from(citiesOfFavoriteOffers)} />}
 
       <footer className="footer container">
         <Link to={Path.Main} className="footer__logo-link">

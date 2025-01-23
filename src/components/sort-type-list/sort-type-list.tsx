@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { SortTypeName } from '../const';
-import { getSortTypeName } from '../store/offer-data/offer-data-selectors';
-import { offerData } from '../store/offer-data/offer-data';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { SortTypeName } from '../../const';
+import { getSortTypeName } from '../../store/offer-data/offer-data-selectors';
+import { offerData } from '../../store/offer-data/offer-data';
 import SortType from './sort-type';
 import React from 'react';
 

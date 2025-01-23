@@ -1,11 +1,11 @@
-import useMap from '../hooks/use-map';
+import useMap from '../../hooks/use-map';
 import { useRef, useEffect } from 'react';
-import { Location } from '../types/offer';
-import { UrlMarker } from '../const';
+import { Location } from '../../types/offer';
+import { UrlMarker } from '../../const';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useAppSelector } from '../hooks';
-import { getCity } from '../store/offer-data/offer-data-selectors';
+import { useAppSelector } from '../../hooks';
+import { getCity } from '../../store/offer-data/offer-data-selectors';
 
 type MapProps = {
   locations: Location[];

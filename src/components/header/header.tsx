@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
-import { AuthorizationStatus, Path } from '../const';
-import { useAppSelector } from '../hooks';
+import { AuthorizationStatus, Path } from '../../const';
+import { useAppSelector } from '../../hooks';
 import { Link, useNavigate } from 'react-router-dom';
-import { store } from '../store';
-import { logoutAction } from '../store/api-actions';
-import { getAuthorizationStatus, getEmail } from '../store/user-process/user-process-selectors';
-import { getFavoriteOffers } from '../store/offer-data/offer-data-selectors';
+import { store } from '../../store';
+import { logoutAction } from '../../store/api-actions/api-actions';
+import { getAuthorizationStatus, getEmail } from '../../store/user-process/user-process-selectors';
+import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
 import React from 'react';
 
 type HeaderProps = {

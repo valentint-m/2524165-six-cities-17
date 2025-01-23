@@ -1,14 +1,14 @@
 import { AxiosInstance } from 'axios';
-import { AppDispatch, State } from '../types/state';
+import { AppDispatch, State } from '../../types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiRoute } from '../const';
-import { FavoriteOfferPost, Offer, OfferById } from '../types/offer';
-import { AuthData } from '../types/auth-data';
-import { UserData } from '../types/user-data';
-import { dropToken, saveToken } from '../services/token';
-import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById, getOfferFavoriteStatusUrl } from '../utils';
-import { UserComment, UserCommentPost } from '../types/comment';
-import { store } from '.';
+import { ApiRoute } from '../../const';
+import { FavoriteOfferPost, Offer, OfferById } from '../../types/offer';
+import { AuthData } from '../../types/auth-data';
+import { UserData } from '../../types/user-data';
+import { dropToken, saveToken } from '../../services/token';
+import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById, getOfferFavoriteStatusUrl } from '../../utils/utils';
+import { UserComment, UserCommentPost } from '../../types/comment';
+import { store } from '..';
 
 export const fetchOfferByIdAction = createAsyncThunk<OfferById, string | undefined, {
   dispatch: AppDispatch;
