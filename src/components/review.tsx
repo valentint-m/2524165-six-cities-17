@@ -20,7 +20,7 @@ function Review({userComment}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${userComment.rating * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
+            <span style={{width: `${Math.round(userComment.rating) * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
