@@ -1,8 +1,8 @@
-import { SortTypeName } from './const';
+import { CityName, SortTypeName } from './const';
 import { City, Location, Offer } from './types/offer';
 
 function getCitiesInfo (offers: Offer[]) {
-  const cityNames = new Set<string>();
+  const cityNames = new Set<CityName>();
   const cities: City[] = [];
   offers.forEach((offer) => cityNames.add(offer.city.name));
 
@@ -16,7 +16,7 @@ function getCitiesInfo (offers: Offer[]) {
   return cities;
 }
 
-function getCityLocationByName (cities: City[], cityName: string): Location {
+function getCityLocationByName (cities: City[], cityName: CityName): Location {
   const defaultLocation = {
     latitude: 0,
     longitude: 0,
@@ -27,7 +27,7 @@ function getCityLocationByName (cities: City[], cityName: string): Location {
   return cityLocation ? cityLocation : defaultLocation;
 }
 
-function getOffersByCity (offers: Offer[], cityName: string): Offer[] {
+function getOffersByCity (offers: Offer[], cityName: CityName): Offer[] {
   return offers.filter((offer) => offer.city.name === cityName);
 }
 
