@@ -154,7 +154,7 @@ function OfferScreen (): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offersNearby.map((offer) => <CityCard offer={offer} handleHoverOverCard={() => null} handleLeaveCard={() => null} isOnMainPage key={offer.id} />)}
+              {offersNearby.map((offer) => <CityCard offer={offer} onHoverOverCard={() => null} onMouseLeaveCard={() => null} isOnMainPage key={offer.id} />)}
             </div>
           </section>
         </div>

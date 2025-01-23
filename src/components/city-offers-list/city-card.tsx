@@ -14,11 +14,11 @@ import React from 'react';
 type CityCardProps = {
   offer: Offer;
   isOnMainPage: boolean;
-  handleHoverOverCard: (location: Location) => void;
-  handleLeaveCard: () => void;
+  onHoverOverCard: (location: Location) => void;
+  onMouseLeaveCard: () => void;
 }
 
-function CityCard ({offer, isOnMainPage, handleHoverOverCard, handleLeaveCard}: CityCardProps): JSX.Element {
+function CityCard ({offer, isOnMainPage, onHoverOverCard, onMouseLeaveCard}: CityCardProps): JSX.Element {
   const navigate = useNavigate();
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const offerId = offer.id;
@@ -39,7 +39,7 @@ function CityCard ({offer, isOnMainPage, handleHoverOverCard, handleLeaveCard}: 
 
       <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
         <Link to={getPathById(offer.id)}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => handleHoverOverCard(offer.location)} onMouseLeave={() => handleLeaveCard()}/>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location)} onMouseLeave={() => onMouseLeaveCard()}/>
         </Link>
       </div>
       <div className="place-card__info">
