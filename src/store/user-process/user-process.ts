@@ -6,6 +6,7 @@ import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 const initialState: UserProcess = {
   email: '',
   authorizationStatus: AuthorizationStatus.UNKNOWN,
+  isLoggingOut: false,
 };
 
 export const userProcess = createSlice({
@@ -28,8 +29,12 @@ export const userProcess = createSlice({
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NO_AUTH;
       })
+      .addCase(logoutAction.pending, (state) => {
+        state.isLoggingOut = true;
+      })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NO_AUTH;
+        state.isLoggingOut = false;
       });
   }
 });

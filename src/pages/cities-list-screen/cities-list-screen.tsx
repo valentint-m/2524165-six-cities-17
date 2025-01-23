@@ -22,7 +22,7 @@ function CitiesListScreen (): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      <Header />
+      <Header isClosedPage={false}/>
       <main className={`page__main page__main--index ${cityOffers.length === 0 && 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

@@ -6,6 +6,7 @@ import { City, Offer, OfferById } from './offer.js';
 export type UserProcess = {
   email: string;
   authorizationStatus: AuthorizationStatus;
+  isLoggingOut: boolean;
 };
 
 export type OfferData = {

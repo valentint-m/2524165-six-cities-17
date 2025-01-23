@@ -1,14 +1,19 @@
 /* eslint-disable react-refresh/only-export-components */
 import { AuthorizationStatus, Path } from '../const';
 import { useAppSelector } from '../hooks';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { store } from '../store';
 import { logoutAction } from '../store/api-actions';
 import { getAuthorizationStatus, getEmail } from '../store/user-process/user-process-selectors';
 import { getFavoriteOffers } from '../store/offer-data/offer-data-selectors';
 import React from 'react';
 
-function Header (): JSX.Element {
+type HeaderProps = {
+  isClosedPage: boolean;
+}
+
+function Header ({isClosedPage}: HeaderProps): JSX.Element {
+  const navigate = useNavigate();
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const favoriteOffersCount = favoriteOffers.length;
 
@@ -18,6 +23,9 @@ function Header (): JSX.Element {
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();
     store.dispatch(logoutAction());
+    if (isClosedPage) {
+      navigate(Path.Login);
+    }
   }
 
   return (

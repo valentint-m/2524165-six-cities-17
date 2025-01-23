@@ -4,7 +4,7 @@ import { FormEvent } from 'react';
 import { loginAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import { getAuthorizationStatus, getLoggingOutStatus } from '../../store/user-process/user-process-selectors';
 import { getCities } from '../../store/offer-data/offer-data-selectors';
 import { getRandomInt } from '../../utils';
 import { offerData } from '../../store/offer-data/offer-data';
@@ -13,6 +13,7 @@ function LoginScreen (): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isLoggingOut = useAppSelector(getLoggingOutStatus);
   const cities = useAppSelector(getCities);
   const randomCity = cities[getRandomInt(0, cities.length - 1)].name;
 
@@ -38,7 +39,7 @@ function LoginScreen (): JSX.Element {
     navigate(Path.Main);
   }
 
-  if (isLoggedIn) {
+  if (isLoggedIn && !isLoggingOut) {
     return (
       <Navigate to={Path.Main} />
     );
