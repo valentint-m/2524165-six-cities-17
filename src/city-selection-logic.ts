@@ -1,5 +1,5 @@
 import { SortTypeName } from './const';
-import { City, Offer } from './types/offer';
+import { City, Location, Offer } from './types/offer';
 
 function getCitiesInfo (offers: Offer[]) {
   const cityNames = new Set<string>();
@@ -16,8 +16,15 @@ function getCitiesInfo (offers: Offer[]) {
   return cities;
 }
 
-function getCityByName (cities: City[], cityName: string): City {
-  return cities.find((city) => city.name === cityName) as City;
+function getCityLocationByName (cities: City[], cityName: string): Location {
+  const defaultLocation = {
+    latitude: 0,
+    longitude: 0,
+    zoom: 10,
+  };
+  const cityLocation = cities.find((city) => city.name === cityName)?.location;
+
+  return cityLocation ? cityLocation : defaultLocation;
 }
 
 function getOffersByCity (offers: Offer[], cityName: string): Offer[] {
@@ -39,4 +46,4 @@ function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sort
   }
 }
 
-export { getCityByName, getCitiesInfo, getOffersByCity, sortCityOffersByType };
+export { getCityLocationByName, getCitiesInfo, getOffersByCity, sortCityOffersByType };

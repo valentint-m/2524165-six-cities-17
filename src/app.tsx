@@ -26,7 +26,6 @@ function App (): JSX.Element {
     }
   }, [isLoggedIn]);
 
-
   if (isOffersDataLoading) {
     return (
       <LoadingScreen />

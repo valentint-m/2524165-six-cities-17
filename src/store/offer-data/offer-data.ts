@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace, SortTypeName } from '../../const';
+import { CityName, NameSpace, SortTypeName } from '../../const';
 import { OfferData } from '../../types/state';
 import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions';
-import { getCitiesInfo, getCityByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
+import { getCitiesInfo, getCityLocationByName, getOffersByCity, sortCityOffersByType } from '../../city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import { sortCommentsByNew } from '../../utils';
 
 const initialState: OfferData = {
   city: {
-    name: '',
+    name: CityName.Paris,
     location: {
       latitude: 0,
       longitude: 0,
@@ -66,12 +66,18 @@ export const offerData = createSlice({
   initialState,
   reducers: {
     setDefaultCity: (state) => {
-      state.city = state.cities[0];
-      state.offersByCity = getOffersByCity(state.offers, state.city.name);
-      state.offersByCityDefaultSort = state.offersByCity;
+      if (state.cities.length > 0) {
+        state.city.name = CityName.Paris;
+        state.city.location = getCityLocationByName(state.cities, state.city.name);
+        state.offersByCity = getOffersByCity(state.offers, state.city.name);
+        state.offersByCityDefaultSort = state.offersByCity;
+      } else {
+        state.city.name = CityName.Paris;
+      }
     },
     changeCity: (state, action: PayloadAction<string>) => {
-      state.city = getCityByName(state.cities, action.payload);
+      state.city.name = action.payload;
+      state.city.location = getCityLocationByName(state.cities, action.payload);
     },
     changeSortType: (state, action: PayloadAction<SortTypeName>) => {
       state.sortType = action.payload;
@@ -80,8 +86,10 @@ export const offerData = createSlice({
       state.offersByCity = sortCityOffersByType(state.offersByCity, state.offersByCityDefaultSort, state.sortType);
     },
     loadCityOffers: (state) => {
-      state.offersByCity = getOffersByCity(state.offers, state.city.name);
-      state.offersByCityDefaultSort = state.offersByCity;
+      if (state.cities.length > 0) {
+        state.offersByCity = getOffersByCity(state.offers, state.city.name);
+        state.offersByCityDefaultSort = state.offersByCity;
+      }
     },
   },
   extraReducers(builder) {
