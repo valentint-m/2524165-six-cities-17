@@ -9,6 +9,7 @@ import { changeOfferFavoriteStatusAction, fetchFavoriteOffersAction } from '../s
 import { store } from '../store';
 import { useAppSelector } from '../hooks';
 import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
+import PremiumMark from './premium-mark';
 
 type CityCardProps = {
   offer: Offer;
@@ -33,9 +34,9 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
 
   return (
     <article className={`${isOnMainPage ? 'cities__card' : 'near-places__card'} place-card`} >
-      <div className="place-card__mark">
-        <span>{offer.isPremium ? 'Premium' : ''}</span>
-      </div>
+
+      {offer.isPremium && <PremiumMark />}
+
       <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
         <Link to={getPathById(offer.id)}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location)}/>
