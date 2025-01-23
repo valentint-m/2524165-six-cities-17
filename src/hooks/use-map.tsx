@@ -12,7 +12,7 @@ function useMap ({mapRef, city}: UseMapParameters): Map | null {
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (mapRef.current !== null && !isRenderedRef.current) {
+    if (mapRef.current !== null && !isRenderedRef.current && city.location.latitude !== 0) {
       const instance = new Map(mapRef.current, {
         center: {
           lat: city.location.latitude,

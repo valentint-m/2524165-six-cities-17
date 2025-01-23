@@ -30,7 +30,7 @@ export default function CityOffersList ({cityOffers, city}: CityOffersListProps)
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map city={city} locations={cityOffers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
+          <Map locations={cityOffers.map((offer) => offer.location)} selectedPoint={selectedPoint}/>
         </section>
       </div>
     </div>
