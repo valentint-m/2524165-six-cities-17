@@ -29,7 +29,7 @@ export default function CityOffersList ({cityOffers, city}: CityOffersListProps)
         <b className="places__found">{cityOffers.length > 1 ? `${cityOffers.length} places` : '1 place'} to stay in {city.name}</b>
         <SortTypeList />
         <div className="cities__places-list places__list tabs__content">
-          {cityOffers.map((offer) => <CityCard offer={offer} onHoverOverCard={handleCityCardHover} onLeaveCard={handleLeaveCard} isOnMainPage key={offer.id} />)}
+          {cityOffers.map((offer) => <CityCard offer={offer} handleHoverOverCard={handleCityCardHover} handleLeaveCard={handleLeaveCard} isOnMainPage key={offer.id} />)}
         </div>
       </section>
       <div className="cities__right-section">

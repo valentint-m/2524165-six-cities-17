@@ -34,7 +34,7 @@ function SortTypeList (): JSX.Element {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isOpened ? 'places__options--opened' : null}`}>
-        {Object.values(SortTypeName).map((sortType) => <SortType sortTypeName={sortType} isSelected={selectedSortType === sortType} key={sortType} onTypeSelected={handleTypeSelected}/>)}
+        {Object.values(SortTypeName).map((sortType) => <SortType sortTypeName={sortType} isSelected={selectedSortType === sortType} key={sortType} handleTypeSelected={handleTypeSelected}/>)}
       </ul>
     </form>
   );
