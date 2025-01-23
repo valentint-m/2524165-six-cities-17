@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { postCommentAction } from '../../store/api-actions/api-actions';
 import { store } from '../../store';
-import { MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH } from '../../const';
+import { ReviewLength } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getSubmittingStatus } from '../../store/offer-data/offer-data-selectors';
 
@@ -15,7 +15,7 @@ function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
 
   const isSubmitting = useAppSelector(getSubmittingStatus);
 
-  const isSubmitButtonActive: boolean = radioData.some((radioValue) => radioValue === true) && textData.length >= MIN_REVIEW_LENGTH && textData.length <= MAX_REVIEW_LENGTH;
+  const isSubmitButtonActive: boolean = radioData.some((radioValue) => radioValue === true) && textData.length >= (ReviewLength.Min as number) && textData.length <= (ReviewLength.Max as number);
 
   function handleTextChange (event: ChangeEvent<HTMLTextAreaElement>) {
     setTextData(event.target.value);

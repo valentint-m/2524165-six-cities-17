@@ -46,10 +46,12 @@ enum NameSpace {
   User = 'USER',
 }
 
+enum ReviewLength {
+  Min = 50,
+  Max = 300,
+}
+
 const RATING_TO_BAR_WIDTH_RATIO = 20;
 
-const MIN_REVIEW_LENGTH = 50;
-const MAX_REVIEW_LENGTH = 300;
-
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, MIN_REVIEW_LENGTH, MAX_REVIEW_LENGTH, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace, CityName };
+export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, ReviewLength, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace, CityName };
 
