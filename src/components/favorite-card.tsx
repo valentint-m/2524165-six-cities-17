@@ -3,7 +3,7 @@ import { Offer } from '../types/offer';
 import { Link } from 'react-router-dom';
 import { getPathById } from '../utils';
 import { store } from '../store';
-import { changeOfferFavoriteStatusAction, fetchFavoriteOffersAction } from '../store/api-actions';
+import { changeOfferFavoriteStatusAction } from '../store/api-actions';
 
 type FavoriteCardProps = {
   offer: Offer;
@@ -15,7 +15,6 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
 
   function handleFavoriteButtonClick () {
     store.dispatch(changeOfferFavoriteStatusAction({offerId, status}));
-    store.dispatch(fetchFavoriteOffersAction());
   }
 
   return (

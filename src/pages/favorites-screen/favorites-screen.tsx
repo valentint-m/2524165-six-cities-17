@@ -14,7 +14,7 @@ function FavoritesScreen (): JSX.Element {
   favoriteOffers.forEach((offer) => citiesOfFavoriteOffers.add(offer.city.name));
 
   return (
-    <div className="page">
+    <div className={`page ${favoriteOffersCount === 0 && 'page--favorites-empty'}`}>
       <Header isClosedPage/>
 
       {favoriteOffersCount === 0

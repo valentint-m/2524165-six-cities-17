@@ -4,7 +4,7 @@ import { Offer } from '../types/offer';
 import { Link, useNavigate } from 'react-router-dom';
 import { getPathById } from '../utils';
 import { Location } from '../types/offer';
-import { changeOfferFavoriteStatusAction, fetchFavoriteOffersAction } from '../store/api-actions';
+import { changeOfferFavoriteStatusAction } from '../store/api-actions';
 import { store } from '../store';
 import { useAppSelector } from '../hooks';
 import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
@@ -27,7 +27,6 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard, onLeaveCard}: CityCard
   function handleFavoriteButtonClick () {
     if (isLoggedIn) {
       store.dispatch(changeOfferFavoriteStatusAction({offerId, status}));
-      store.dispatch(fetchFavoriteOffersAction());
     } else {
       navigate(Path.Login);
     }
