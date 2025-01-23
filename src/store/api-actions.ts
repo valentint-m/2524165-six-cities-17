@@ -97,15 +97,16 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const postCommentAction = createAsyncThunk<void, UserCommentPost, {
+export const postCommentAction = createAsyncThunk<UserComment, UserCommentPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/postComment',
   async ({offerId, comment, rating}, {extra: api}) => {
-    await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
+    const {data} = await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
     store.dispatch(fetchCommentsByIdAction(offerId));
+    return data;
   },
 );
 

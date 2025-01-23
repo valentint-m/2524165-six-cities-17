@@ -59,6 +59,7 @@ const initialState: OfferData = {
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
   hasError: false,
+  isSubmitting: false,
 };
 
 export const offerData = createSlice({
@@ -132,7 +133,6 @@ export const offerData = createSlice({
         state.hasError = true;
       })
       .addCase(fetchCommentsByIdAction.pending, (state) => {
-        state.isOffersDataLoading = true;
         state.hasError = false;
       })
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
@@ -143,14 +143,14 @@ export const offerData = createSlice({
         state.hasError = true;
       })
       .addCase(postCommentAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isSubmitting = true;
         state.hasError = false;
       })
       .addCase(postCommentAction.fulfilled, (state) => {
-        state.isOffersDataLoading = false;
+        state.isSubmitting = false;
       })
       .addCase(postCommentAction.rejected, (state) => {
-        state.hasError = true;
+        state.isSubmitting = false;
       })
       .addCase(fetchFavoriteOffersAction.pending, (state) => {
         state.hasError = false;

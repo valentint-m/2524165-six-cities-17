@@ -24,3 +24,6 @@ export const getSortTypeName = (state: State): SortTypeName => state[NameSpace.D
 export const getOffersDataLoadingStatus = (state: State): boolean => state[NameSpace.DATA].isOffersDataLoading;
 
 export const getErrorStatus = (state: State): boolean => state[NameSpace.DATA].hasError;
+
+export const getSubmittingStatus = (state: State): boolean => state[NameSpace.DATA].isSubmitting;
+

@@ -21,6 +21,7 @@ export type OfferData = {
   sortType: SortTypeName;
   isOffersDataLoading: boolean;
   hasError: boolean;
+  isSubmitting: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;
