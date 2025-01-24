@@ -20,7 +20,6 @@ function SortTypeList (): JSX.Element {
     setOpened(false);
     if (!isSelected) {
       dispatch(offerData.actions.changeSortType(sortTypeName));
-      dispatch(offerData.actions.sortCityOffers());
     }
   }
 

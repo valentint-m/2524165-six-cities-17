@@ -2,20 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CityName, NameSpace, SortTypeName } from '../../const';
 import { OfferData } from '../../types/state';
 import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction, fetchOffersAction, postCommentAction } from '../api-actions/api-actions';
-import { getCitiesInfo, getCityLocationByName, getOffersByCity, sortCityOffersByType } from '../../utils/city-selection-logic';
 import { Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
-import { sortCommentsByNew } from '../../utils/comment-sort-logic';
 
 const initialState: OfferData = {
-  city: {
-    name: CityName.Paris,
-    location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 8
-    }
-  },
+  city: CityName.Paris,
   offers: [],
   offerById: {
     id: '',
@@ -50,12 +41,9 @@ const initialState: OfferData = {
     images: [''],
     maxAdults: 0
   },
-  offersByCity: [],
-  offersByCityDefaultSort: [],
   offersNearby: [],
   favoriteOffers: [],
   comments: [],
-  cities: [],
   isOffersDataLoading: false,
   sortType: SortTypeName.Popular,
   hasError: false,
@@ -66,31 +54,11 @@ export const offerData = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    setDefaultCity: (state) => {
-      if (state.cities.length > 0) {
-        state.city.name = CityName.Paris;
-        state.city.location = getCityLocationByName(state.cities, state.city.name);
-        state.offersByCity = getOffersByCity(state.offers, state.city.name);
-        state.offersByCityDefaultSort = state.offersByCity;
-      } else {
-        state.city.name = CityName.Paris;
-      }
-    },
     changeCity: (state, action: PayloadAction<CityName>) => {
-      state.city.name = action.payload;
-      state.city.location = getCityLocationByName(state.cities, action.payload);
+      state.city = action.payload;
     },
     changeSortType: (state, action: PayloadAction<SortTypeName>) => {
       state.sortType = action.payload;
-    },
-    sortCityOffers: (state) => {
-      state.offersByCity = sortCityOffersByType(state.offersByCity, state.offersByCityDefaultSort, state.sortType);
-    },
-    loadCityOffers: (state) => {
-      if (state.cities.length > 0) {
-        state.offersByCity = getOffersByCity(state.offers, state.city.name);
-        state.offersByCityDefaultSort = state.offersByCity;
-      }
     },
   },
   extraReducers(builder) {
@@ -101,9 +69,6 @@ export const offerData = createSlice({
       })
       .addCase(fetchOffersAction.fulfilled, (state, action: PayloadAction<Offer[]>) => {
         state.offers = action.payload;
-        state.cities = getCitiesInfo(state.offers);
-        state.offersByCity = getOffersByCity(state.offers, state.city.name);
-        state.offersByCityDefaultSort = state.offersByCity;
         state.isOffersDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state) => {
@@ -137,7 +102,6 @@ export const offerData = createSlice({
       })
       .addCase(fetchCommentsByIdAction.fulfilled, (state, action: PayloadAction<UserComment[]>) => {
         state.comments = action.payload;
-        state.comments = sortCommentsByNew(state.comments);
       })
       .addCase(fetchCommentsByIdAction.rejected, (state) => {
         state.hasError = true;
@@ -170,4 +134,4 @@ export const offerData = createSlice({
   }
 });
 
-export const {setDefaultCity, changeCity, changeSortType, sortCityOffers, loadCityOffers} = offerData.actions;
+export const { changeCity, changeSortType } = offerData.actions;

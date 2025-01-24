@@ -13,7 +13,6 @@ export default function City ({cityName, isSelected}: CityProps): JSX.Element {
   function handleClick () {
     if (!isSelected) {
       dispatch(offerData.actions.changeCity(cityName));
-      dispatch(offerData.actions.loadCityOffers());
     }
   }
 

@@ -16,25 +16,25 @@ function getCitiesInfo (offers: Offer[]) {
   return cities;
 }
 
-function getCityLocationByName (cities: City[], cityName: CityName): Location {
+function getCityLocationByName (offers: Offer[], cityName: CityName): Location {
   const defaultLocation = {
     latitude: 0,
     longitude: 0,
     zoom: 10,
   };
-  const cityLocation = cities.find((city) => city.name === cityName)?.location;
+  const cityLocation = offers.find((offer) => offer.city.name === cityName)?.city.location;
 
   return cityLocation ? cityLocation : defaultLocation;
 }
 
-function getOffersByCity (offers: Offer[], cityName: CityName): Offer[] {
+function findOffersByCity (offers: Offer[], cityName: CityName): Offer[] {
   return offers.filter((offer) => offer.city.name === cityName);
 }
 
-function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sortTypeName: string): Offer[] {
+function sortCityOffersByType (offers: Offer[], sortTypeName: string): Offer[] {
   switch (sortTypeName) {
     case SortTypeName.Popular:
-      return offersDefaultSort;
+      return offers;
     case SortTypeName.PriceLowToHigh:
       return offers.sort((offerA, offerB) => offerA.price - offerB.price);
     case SortTypeName.PriceHighToLow:
@@ -46,4 +46,4 @@ function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sort
   }
 }
 
-export { getCityLocationByName, getCitiesInfo, getOffersByCity, sortCityOffersByType };
+export { getCityLocationByName, getCitiesInfo, findOffersByCity, sortCityOffersByType };
