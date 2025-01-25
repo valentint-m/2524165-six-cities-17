@@ -1,11 +1,9 @@
-/* eslint-disable react-refresh/only-export-components */
 import { CityName } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCity } from '../../store/offer-data/offer-data-selectors';
 import City from './city';
-import React from 'react';
 
-function CityList (): JSX.Element {
+export default function CityList (): JSX.Element {
   const cityNames = CityName;
   const selectedCity = useAppSelector(getCity).name;
 
@@ -16,4 +14,3 @@ function CityList (): JSX.Element {
   );
 }
 
-export default React.memo(CityList);

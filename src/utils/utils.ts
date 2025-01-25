@@ -1,7 +1,7 @@
 import { ApiRoute } from '../const';
 
 function getPathById (id: string | undefined) {
-  return `offer/${id}`;
+  return `/offer/${id}`;
 }
 
 function getOfferUrlById (id: string | undefined) {

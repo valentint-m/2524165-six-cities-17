@@ -1,16 +1,15 @@
-/* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortTypeName } from '../../const';
 import { getSortTypeName } from '../../store/offer-data/offer-data-selectors';
 import { offerData } from '../../store/offer-data/offer-data';
 import SortType from './sort-type';
-import React from 'react';
 
-function SortTypeList (): JSX.Element {
+export default function SortTypeList (): JSX.Element {
   const dispatch = useAppDispatch();
-  const selectedSortType = useAppSelector(getSortTypeName);
+
   const [isOpened, setOpened] = useState(false);
+  const selectedSortType = useAppSelector(getSortTypeName);
 
   function handleClick () {
     setOpened(true);
@@ -39,4 +38,3 @@ function SortTypeList (): JSX.Element {
   );
 }
 
-export default React.memo(SortTypeList);

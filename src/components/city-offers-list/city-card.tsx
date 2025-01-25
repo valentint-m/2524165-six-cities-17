@@ -1,15 +1,12 @@
-/* eslint-disable react-refresh/only-export-components */
 import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Offer } from '../../types/offer';
 import { Link, useNavigate } from 'react-router-dom';
 import { getPathById } from '../../utils/utils';
 import { Location } from '../../types/offer';
 import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
-import { store } from '../../store';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import PremiumMarkCard from '../premium-mark-card/premium-mark-card';
-import React from 'react';
 
 type CityCardProps = {
   offer: Offer;
@@ -18,15 +15,17 @@ type CityCardProps = {
   onMouseLeaveCard: () => void;
 }
 
-function CityCard ({offer, isOnMainPage, onHoverOverCard, onMouseLeaveCard}: CityCardProps): JSX.Element {
+export default function CityCard ({offer, isOnMainPage, onHoverOverCard, onMouseLeaveCard}: CityCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const offerId = offer.id;
   const status = offer.isFavorite;
 
   function handleFavoriteButtonClick () {
     if (isLoggedIn) {
-      store.dispatch(changeOfferFavoriteStatusAction({offerId, status}));
+      dispatch(changeOfferFavoriteStatusAction({offerId, status}));
     } else {
       navigate(Path.Login);
     }
@@ -70,5 +69,4 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard, onMouseLeaveCard}: Cit
   );
 }
 
-export default React.memo(CityCard, (prevProps, nextProps) => prevProps.offer.id === nextProps.offer.id && prevProps.offer.isFavorite === nextProps.offer.isFavorite);
 

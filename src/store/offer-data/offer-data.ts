@@ -35,7 +35,7 @@ const initialState: OfferData = {
     goods: [''],
     host: {
       name: '',
-      avatarURL: '',
+      avatarUrl: '',
       isPro: false,
     },
     images: [''],

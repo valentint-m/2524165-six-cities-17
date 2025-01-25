@@ -1,9 +1,8 @@
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Location, Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
-import { store } from '../../store';
 import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions/api-actions';
 import { getComments, getOfferById, getOffersNearby } from '../../store/offer-data/offer-data-selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
@@ -20,6 +19,8 @@ import OfferGoodItem from '../../components/offer-good-item/offer-good-item';
 
 function OfferScreen (): JSX.Element {
   const params = useParams();
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const offerById: OfferById = useAppSelector(getOfferById);
@@ -29,8 +30,8 @@ function OfferScreen (): JSX.Element {
 
   function handleFavoriteButtonClick () {
     if (isLoggedIn) {
-      store.dispatch(changeOfferFavoriteStatusAction({offerId: offerById.id, status: offerById.isFavorite}));
-      store.dispatch(fetchFavoriteOffersAction());
+      dispatch(changeOfferFavoriteStatusAction({offerId: offerById.id, status: offerById.isFavorite}));
+      dispatch(fetchFavoriteOffersAction());
     } else {
       navigate(Path.Login);
     }
@@ -53,11 +54,11 @@ function OfferScreen (): JSX.Element {
 
   useEffect(() => {
     if (params.id !== offerById.id) {
-      store.dispatch(fetchOfferByIdAction(params.id));
-      store.dispatch(fetchCommentsByIdAction(params.id));
-      store.dispatch(fetchNearbyOffersByIdAction(params.id));
+      dispatch(fetchOfferByIdAction(params.id));
+      dispatch(fetchCommentsByIdAction(params.id));
+      dispatch(fetchNearbyOffersByIdAction(params.id));
     }
-  }, [params.id, offerById]);
+  }, [params.id, offerById, dispatch]);
 
   return (
     <div className="page">
@@ -117,7 +118,7 @@ function OfferScreen (): JSX.Element {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className={`offer__avatar-wrapper user__avatar-wrapper ${offerById.host.isPro && 'offer__avatar-wrapper--pro'}`}>
-                    <img className="offer__avatar user__avatar" src={offerById.host.avatarURL} width="74" height="74" alt="Host avatar" />
+                    <img className="offer__avatar user__avatar" src={offerById.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">
                     {offerById.host.name}

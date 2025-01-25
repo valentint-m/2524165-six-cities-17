@@ -2,19 +2,21 @@ import { RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { getPathById } from '../../utils/utils';
-import { store } from '../../store';
 import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
+import { useAppDispatch } from '../../hooks';
 
 type FavoriteCardProps = {
   offer: Offer;
 }
 
 function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const offerId = offer.id;
   const status = offer.isFavorite;
 
   function handleFavoriteButtonClick () {
-    store.dispatch(changeOfferFavoriteStatusAction({offerId, status}));
+    dispatch(changeOfferFavoriteStatusAction({offerId, status}));
   }
 
   return (

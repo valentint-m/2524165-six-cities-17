@@ -1,8 +1,6 @@
-/* eslint-disable react-refresh/only-export-components */
 import { AuthorizationStatus, Path } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link, useNavigate } from 'react-router-dom';
-import { store } from '../../store';
 import { logoutAction } from '../../store/api-actions/api-actions';
 import { getAuthorizationStatus, getEmail } from '../../store/user-process/user-process-selectors';
 import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
@@ -12,8 +10,10 @@ type HeaderProps = {
   isClosedPage: boolean;
 }
 
-function Header ({isClosedPage}: HeaderProps): JSX.Element {
+export default function Header ({isClosedPage}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const favoriteOffersCount = favoriteOffers.length;
 
@@ -22,7 +22,7 @@ function Header ({isClosedPage}: HeaderProps): JSX.Element {
 
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();
-    store.dispatch(logoutAction());
+    dispatch(logoutAction());
     if (isClosedPage) {
       navigate(Path.Login);
     }
@@ -71,4 +71,3 @@ function Header ({isClosedPage}: HeaderProps): JSX.Element {
   );
 }
 
-export default React.memo(Header);

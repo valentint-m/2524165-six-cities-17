@@ -1,7 +1,7 @@
 import { CityName } from '../const';
 
 type Host = {
-  avatarURL: string;
+  avatarUrl: string;
   name: string;
   isPro: boolean;
 }

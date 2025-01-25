@@ -2,7 +2,6 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthorizationStatus, Path } from '../../const';
 import { FormEvent } from 'react';
 import { loginAction } from '../../store/api-actions/api-actions';
-import { store } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus, getLoggingOutStatus } from '../../store/user-process/user-process-selectors';
 import { getCities } from '../../store/offer-data/offer-data-selectors';
@@ -12,6 +11,7 @@ import { offerData } from '../../store/offer-data/offer-data';
 function LoginScreen (): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const isLoggingOut = useAppSelector(getLoggingOutStatus);
   const cities = useAppSelector(getCities);
@@ -25,7 +25,7 @@ function LoginScreen (): JSX.Element {
     const password = formData.get('password') as string | null;
 
     if (email && password) {
-      store.dispatch(loginAction({email: email, password: password}));
+      dispatch(loginAction({email: email, password: password}));
     }
   }
 

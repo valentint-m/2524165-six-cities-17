@@ -1,8 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { postCommentAction } from '../../store/api-actions/api-actions';
-import { store } from '../../store';
 import { ReviewLength } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getSubmittingStatus } from '../../store/offer-data/offer-data-selectors';
 
 type FormSubmitCommentProps = {
@@ -10,6 +9,8 @@ type FormSubmitCommentProps = {
 }
 
 function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [radioData, setRadioData] = useState([false, false, false, false, false]);
   const [textData, setTextData] = useState('');
 
@@ -40,7 +41,7 @@ function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
 
     if (comment && rating) {
       const convertedRating = parseFloat(rating);
-      store.dispatch(postCommentAction({offerId, comment, rating: convertedRating})).then((userComment) => {
+      dispatch(postCommentAction({offerId, comment, rating: convertedRating})).then((userComment) => {
         if (userComment.payload) {
           setTextData('');
           setRadioData([false, false, false, false, false]);
