@@ -1,8 +1,7 @@
-import { ApiRoute } from './const';
-import { UserComment } from './types/comment';
+import { ApiRoute } from '../const';
 
 function getPathById (id: string | undefined) {
-  return `offer/${id}`;
+  return `/offer/${id}`;
 }
 
 function getOfferUrlById (id: string | undefined) {
@@ -28,13 +27,10 @@ function getFormattedDate(date: string): string {
   return formattedDate;
 }
 
-function sortCommentsByNew(comments: UserComment[]) {
-  const sortedComments = comments.sort((commentA, commentB) => {
-    const newDateA = new Date(commentA.date);
-    const newDateB = new Date(commentB.date);
-    return newDateB > newDateA ? 1 : 0;
-  });
-  return sortedComments;
+function getRandomInt(min: number, max: number) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
 }
 
-export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate, sortCommentsByNew };
+export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate, getRandomInt };

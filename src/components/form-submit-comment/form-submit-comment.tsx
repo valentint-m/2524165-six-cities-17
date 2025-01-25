@@ -1,17 +1,22 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { postCommentAction } from '../store/api-actions';
-import { store } from '../store';
-import { MAX_REVIEW_LENGTH, MIN_REVIEW_LENGTH } from '../const';
+import { postCommentAction } from '../../store/api-actions/api-actions';
+import { ReviewLength } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getSubmittingStatus } from '../../store/offer-data/offer-data-selectors';
 
 type FormSubmitCommentProps = {
   offerId: string | undefined;
 }
 
 function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const [radioData, setRadioData] = useState([false, false, false, false, false]);
   const [textData, setTextData] = useState('');
 
-  const isSubmitButtonActive: boolean = radioData.some((radioValue) => radioValue === true) && textData.length >= MIN_REVIEW_LENGTH && textData.length <= MAX_REVIEW_LENGTH;
+  const isSubmitting = useAppSelector(getSubmittingStatus);
+
+  const isSubmitButtonActive: boolean = radioData.some((radioValue) => radioValue === true) && textData.length >= (ReviewLength.Min as number) && textData.length <= (ReviewLength.Max as number);
 
   function handleTextChange (event: ChangeEvent<HTMLTextAreaElement>) {
     setTextData(event.target.value);
@@ -36,7 +41,12 @@ function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
 
     if (comment && rating) {
       const convertedRating = parseFloat(rating);
-      store.dispatch(postCommentAction({offerId, comment, rating: convertedRating}));
+      dispatch(postCommentAction({offerId, comment, rating: convertedRating})).then((userComment) => {
+        if (userComment.payload) {
+          setTextData('');
+          setRadioData([false, false, false, false, false]);
+        }
+      });
     }
   }
 
@@ -44,47 +54,47 @@ function FormSubmitComment ({offerId}: FormSubmitCommentProps): JSX.Element {
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" data-id="4" checked={radioData[4]} onChange={handleRadioChange} />
+        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" data-id="4" checked={radioData[4]} onChange={handleRadioChange} disabled={isSubmitting}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" data-id="3" checked={radioData[3]} onChange={handleRadioChange} />
+        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" data-id="3" checked={radioData[3]} onChange={handleRadioChange} disabled={isSubmitting}/>
         <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" data-id="2" checked={radioData[2]} onChange={handleRadioChange} />
+        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" data-id="2" checked={radioData[2]} onChange={handleRadioChange} disabled={isSubmitting}/>
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" data-id="1" checked={radioData[1]} onChange={handleRadioChange} />
+        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" data-id="1" checked={radioData[1]} onChange={handleRadioChange} disabled={isSubmitting}/>
         <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
 
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" data-id="0" checked={radioData[0]} onChange={handleRadioChange} />
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
+        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-stars" type="radio" data-id="0" checked={radioData[0]} onChange={handleRadioChange} disabled={isSubmitting}/>
+        <label htmlFor="1-stars" className="reviews__rating-label form__rating-label" title="terribly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextChange} value={textData} minLength={MIN_REVIEW_LENGTH} maxLength={MAX_REVIEW_LENGTH}>{textData}</textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleTextChange} value={textData} disabled={isSubmitting}>{textData}</textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
                       To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isSubmitButtonActive}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitting || !isSubmitButtonActive}>Submit</button>
       </div>
     </form>
   );

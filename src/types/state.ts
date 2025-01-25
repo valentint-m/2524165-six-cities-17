@@ -1,26 +1,25 @@
-import { AuthorizationStatus, SortTypeName } from '../const.js';
+import { AuthorizationStatus, CityName, SortTypeName } from '../const.js';
 import { store } from '../store/index.js';
 import { UserComment } from './comment.js';
-import { City, Offer, OfferById } from './offer.js';
+import { Offer, OfferById } from './offer.js';
 
 export type UserProcess = {
   email: string;
   authorizationStatus: AuthorizationStatus;
+  isLoggingOut: boolean;
 };
 
 export type OfferData = {
-  city: City;
+  city: CityName;
   offers: Offer[];
   offerById: OfferById;
-  offersByCity: Offer[];
-  offersByCityDefaultSort: Offer[];
   offersNearby: Offer[];
   favoriteOffers: Offer[];
   comments: UserComment[];
-  cities: City[];
   sortType: SortTypeName;
   isOffersDataLoading: boolean;
   hasError: boolean;
+  isSubmitting: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

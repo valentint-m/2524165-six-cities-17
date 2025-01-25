@@ -1,31 +1,31 @@
-/* eslint-disable react-refresh/only-export-components */
-import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../const';
-import { Offer } from '../types/offer';
+import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { Offer } from '../../types/offer';
 import { Link, useNavigate } from 'react-router-dom';
-import { getPathById } from '../utils';
-import { Location } from '../types/offer';
-import React from 'react';
-import { changeOfferFavoriteStatusAction, fetchFavoriteOffersAction } from '../store/api-actions';
-import { store } from '../store';
-import { useAppSelector } from '../hooks';
-import { getAuthorizationStatus } from '../store/user-process/user-process-selectors';
+import { getPathById } from '../../utils/utils';
+import { Location } from '../../types/offer';
+import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
+import PremiumMarkCard from '../premium-mark-card/premium-mark-card';
 
 type CityCardProps = {
   offer: Offer;
   isOnMainPage: boolean;
   onHoverOverCard: (location: Location) => void;
+  onMouseLeaveCard: () => void;
 }
 
-function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.Element {
+export default function CityCard ({offer, isOnMainPage, onHoverOverCard, onMouseLeaveCard}: CityCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const offerId = offer.id;
   const status = offer.isFavorite;
 
   function handleFavoriteButtonClick () {
     if (isLoggedIn) {
-      store.dispatch(changeOfferFavoriteStatusAction({offerId, status}));
-      store.dispatch(fetchFavoriteOffersAction());
+      dispatch(changeOfferFavoriteStatusAction({offerId, status}));
     } else {
       navigate(Path.Login);
     }
@@ -33,12 +33,12 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
 
   return (
     <article className={`${isOnMainPage ? 'cities__card' : 'near-places__card'} place-card`} >
-      <div className="place-card__mark">
-        <span>{offer.isPremium ? 'Premium' : ''}</span>
-      </div>
+
+      {offer.isPremium && <PremiumMarkCard />}
+
       <div className={`${isOnMainPage ? 'cities__image-wrapper' : 'near-places__image-wrapper'} place-card__image-wrapper`}>
         <Link to={getPathById(offer.id)}>
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location)}/>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" onMouseOver={() => onHoverOverCard(offer.location)} onMouseLeave={() => onMouseLeaveCard()}/>
         </Link>
       </div>
       <div className="place-card__info">
@@ -56,7 +56,7 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offer.rating * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
+            <span style={{width: `${Math.round(offer.rating) * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -69,5 +69,4 @@ function CityCard ({offer, isOnMainPage, onHoverOverCard}: CityCardProps): JSX.E
   );
 }
 
-export default React.memo(CityCard, (prevProps, nextProps) => prevProps.offer.id === nextProps.offer.id && prevProps.offer.isFavorite === nextProps.offer.isFavorite);
 

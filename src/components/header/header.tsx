@@ -1,23 +1,31 @@
-/* eslint-disable react-refresh/only-export-components */
-import { AuthorizationStatus, Path } from '../const';
-import { useAppSelector } from '../hooks';
-import { Link } from 'react-router-dom';
-import { store } from '../store';
-import { logoutAction } from '../store/api-actions';
-import { getAuthorizationStatus, getEmail } from '../store/user-process/user-process-selectors';
-import { getFavoriteOffers } from '../store/offer-data/offer-data-selectors';
+import { AuthorizationStatus, Path } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { logoutAction } from '../../store/api-actions/api-actions';
+import { getAuthorizationStatus, getEmail } from '../../store/user-process/user-process-selectors';
+import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
 import React from 'react';
 
-function Header (): JSX.Element {
+type HeaderProps = {
+  isClosedPage: boolean;
+}
+
+export default function Header ({isClosedPage}: HeaderProps): JSX.Element {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const favoriteOffers = useAppSelector(getFavoriteOffers);
   const favoriteOffersCount = favoriteOffers.length;
 
   const email = useAppSelector(getEmail);
-  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.AUTH;
+  const isAuthorized = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   function handleLogoutButtonClick (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
     evt.preventDefault();
-    store.dispatch(logoutAction());
+    dispatch(logoutAction());
+    if (isClosedPage) {
+      navigate(Path.Login);
+    }
   }
 
   return (
@@ -63,4 +71,3 @@ function Header (): JSX.Element {
   );
 }
 
-export default React.memo(Header);

@@ -1,14 +1,14 @@
 import { AxiosInstance } from 'axios';
-import { AppDispatch, State } from '../types/state';
+import { AppDispatch, State } from '../../types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiRoute } from '../const';
-import { FavoriteOfferPost, Offer, OfferById } from '../types/offer';
-import { AuthData } from '../types/auth-data';
-import { UserData } from '../types/user-data';
-import { dropToken, saveToken } from '../services/token';
-import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById, getOfferFavoriteStatusUrl } from '../utils';
-import { UserComment, UserCommentPost } from '../types/comment';
-import { store } from '.';
+import { ApiRoute } from '../../const';
+import { FavoriteOfferPost, Offer, OfferById } from '../../types/offer';
+import { AuthData } from '../../types/auth-data';
+import { UserData } from '../../types/user-data';
+import { dropToken, saveToken } from '../../services/token';
+import { getOfferUrlById, getCommentsUrlById, getNearbyOffersUrlById, getOfferFavoriteStatusUrl } from '../../utils/utils';
+import { UserComment, UserCommentPost } from '../../types/comment';
+import { store } from '..';
 
 export const fetchOfferByIdAction = createAsyncThunk<OfferById, string | undefined, {
   dispatch: AppDispatch;
@@ -97,15 +97,16 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const postCommentAction = createAsyncThunk<void, UserCommentPost, {
+export const postCommentAction = createAsyncThunk<UserComment, UserCommentPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/postComment',
   async ({offerId, comment, rating}, {extra: api}) => {
-    await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
+    const {data} = await api.post<UserComment>(getCommentsUrlById(offerId), {comment, rating});
     store.dispatch(fetchCommentsByIdAction(offerId));
+    return data;
   },
 );
 
@@ -132,5 +133,6 @@ export const changeOfferFavoriteStatusAction = createAsyncThunk<void, FavoriteOf
     await api.post<Offer>(getOfferFavoriteStatusUrl(offerId, convertedStatus));
     store.dispatch(fetchOffersAction());
     store.dispatch(fetchFavoriteOffersAction());
+    store.dispatch(fetchOfferByIdAction(offerId));
   },
 );

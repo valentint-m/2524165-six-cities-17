@@ -1,4 +1,4 @@
-import { SortTypeName } from '../const';
+import { SortTypeName } from '../../const';
 
 type SortTypeProps = {
   sortTypeName: SortTypeName;

@@ -1,8 +1,8 @@
-import { SortTypeName } from './const';
-import { City, Offer } from './types/offer';
+import { CityName, SortTypeName } from '../const';
+import { City, Location, Offer } from '../types/offer';
 
 function getCitiesInfo (offers: Offer[]) {
-  const cityNames = new Set<string>();
+  const cityNames = new Set<CityName>();
   const cities: City[] = [];
   offers.forEach((offer) => cityNames.add(offer.city.name));
 
@@ -16,18 +16,25 @@ function getCitiesInfo (offers: Offer[]) {
   return cities;
 }
 
-function getCityByName (cities: City[], cityName: string): City {
-  return cities.find((city) => city.name === cityName) as City;
+function getCityLocationByName (offers: Offer[], cityName: CityName): Location {
+  const defaultLocation = {
+    latitude: 0,
+    longitude: 0,
+    zoom: 10,
+  };
+  const cityLocation = offers.find((offer) => offer.city.name === cityName)?.city.location;
+
+  return cityLocation ? cityLocation : defaultLocation;
 }
 
-function getOffersByCity (offers: Offer[], cityName: string): Offer[] {
+function findOffersByCity (offers: Offer[], cityName: CityName): Offer[] {
   return offers.filter((offer) => offer.city.name === cityName);
 }
 
-function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sortTypeName: string): Offer[] {
+function sortCityOffersByType (offers: Offer[], sortTypeName: string): Offer[] {
   switch (sortTypeName) {
     case SortTypeName.Popular:
-      return offersDefaultSort;
+      return offers;
     case SortTypeName.PriceLowToHigh:
       return offers.sort((offerA, offerB) => offerA.price - offerB.price);
     case SortTypeName.PriceHighToLow:
@@ -39,4 +46,4 @@ function sortCityOffersByType (offers: Offer[], offersDefaultSort: Offer[], sort
   }
 }
 
-export { getCityByName, getCitiesInfo, getOffersByCity, sortCityOffersByType };
+export { getCityLocationByName, getCitiesInfo, findOffersByCity, sortCityOffersByType };
