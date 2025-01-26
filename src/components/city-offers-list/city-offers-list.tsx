@@ -1,6 +1,6 @@
 import { City, Location, Offer } from '../../types/offer';
 import { useState } from 'react';
-import CityCard from './city-card';
+import CityCard from '../city-card/city-card';
 import SortTypeList from '../sort-type-list/sort-type-list';
 import Map from '../map/map';
 

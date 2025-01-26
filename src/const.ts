@@ -51,7 +51,21 @@ enum ReviewLength {
   Max = 300,
 }
 
-const RATING_TO_BAR_WIDTH_RATIO = 20;
+enum RatingValue {
+  One = 1,
+  Two = 2,
+  Three = 3,
+  Four = 4,
+  Five = 5
+}
 
-export { Path, UrlMarker, RATING_TO_BAR_WIDTH_RATIO, ReviewLength, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace, CityName };
+enum RatingClassName {
+  OneStar = 'rating_1-star',
+  TwoStars = 'rating_2-stars',
+  ThreeStars = 'rating_3-stars',
+  FourStars = 'rating_4-stars',
+  FiveStars = 'rating_5-stars'
+}
+
+export { Path, UrlMarker, ReviewLength, SortTypeName, ApiRoute, AuthorizationStatus, NameSpace, CityName, RatingClassName, RatingValue };
 

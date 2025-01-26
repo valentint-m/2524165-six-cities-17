@@ -1,21 +1,22 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { AuthorizationStatus, Path } from '../../const';
 import { Location, Offer, OfferById } from '../../types/offer';
 import { UserComment } from '../../types/comment';
 import { changeOfferFavoriteStatusAction, fetchCommentsByIdAction, fetchFavoriteOffersAction, fetchNearbyOffersByIdAction, fetchOfferByIdAction } from '../../store/api-actions/api-actions';
 import { getComments, getOfferById, getOffersNearby } from '../../store/offer-data/offer-data-selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import { useEffect } from 'react';
+import { getRatingClassName } from '../../utils/utils';
 import OfferPicture from '../../components/offer-picture/offer-picture';
 import FormSubmitComment from '../../components/form-submit-comment/form-submit-comment';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
-import CityCard from '../../components/city-offers-list/city-card';
+import CityCard from '../../components/city-card/city-card';
 import Header from '../../components/header/header';
 import PremiumMarkOffer from '../../components/premium-mark-offer/premium-mark-offer';
 import OfferGoodItem from '../../components/offer-good-item/offer-good-item';
-
+import './offer-screen.css';
 
 function OfferScreen (): JSX.Element {
   const params = useParams();
@@ -88,7 +89,7 @@ function OfferScreen (): JSX.Element {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: `${Math.round(offerById.rating) * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
+                  <span className={getRatingClassName(offerById.rating)}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{offerById.rating}</span>

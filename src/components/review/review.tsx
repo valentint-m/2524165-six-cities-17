@@ -1,6 +1,6 @@
 import { UserComment } from '../../types/comment';
-import { getFormattedDate } from '../../utils/utils';
-import { RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { getFormattedDate, getRatingClassName } from '../../utils/utils';
+import './review.css';
 
 type ReviewProps = {
   userComment: UserComment;
@@ -20,7 +20,7 @@ function Review({userComment}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${Math.round(userComment.rating) * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
+            <span className={getRatingClassName(userComment.rating)}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

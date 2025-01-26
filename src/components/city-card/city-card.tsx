@@ -1,12 +1,13 @@
-import { AuthorizationStatus, Path, RATING_TO_BAR_WIDTH_RATIO } from '../../const';
+import { AuthorizationStatus, Path } from '../../const';
 import { Offer } from '../../types/offer';
 import { Link, useNavigate } from 'react-router-dom';
-import { getPathById } from '../../utils/utils';
+import { getPathById, getRatingClassName } from '../../utils/utils';
 import { Location } from '../../types/offer';
 import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process-selectors';
 import PremiumMarkCard from '../premium-mark-card/premium-mark-card';
+import './city-card.css';
 
 type CityCardProps = {
   offer: Offer;
@@ -56,7 +57,7 @@ export default function CityCard ({offer, isOnMainPage, onHoverOverCard, onMouse
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(offer.rating) * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
+            <span className={getRatingClassName(offer.rating)}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

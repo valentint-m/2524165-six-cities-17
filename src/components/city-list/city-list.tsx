@@ -1,7 +1,7 @@
 import { CityName } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCity } from '../../store/offer-data/offer-data-selectors';
-import City from './city';
+import City from '../city/city';
 
 export default function CityList (): JSX.Element {
   const cityNames = CityName;

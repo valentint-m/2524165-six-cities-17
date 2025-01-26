@@ -1,0 +1,20 @@
+span.rating_1-star {
+  width: 20%;
+}
+
+span.rating_2-stars {
+  width: 40%;
+}
+
+span.rating_3-stars {
+  width: 60%;
+}
+
+span.rating_4-stars {
+  width: 80%;
+}
+
+span.rating_5-stars{
+  width: 100%;
+}
+

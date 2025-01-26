@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { CityName, Path } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/offer-data/offer-data-selectors';
-import FavoriteCard from './favorite-card';
+import FavoriteCard from '../favorite-card/favorite-card';
 
 type FavoriteCityProps = {
   cityName: CityName;

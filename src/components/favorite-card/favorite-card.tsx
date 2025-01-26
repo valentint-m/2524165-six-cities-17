@@ -1,9 +1,9 @@
-import { RATING_TO_BAR_WIDTH_RATIO } from '../../const';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { getPathById } from '../../utils/utils';
+import { getPathById, getRatingClassName } from '../../utils/utils';
 import { changeOfferFavoriteStatusAction } from '../../store/api-actions/api-actions';
 import { useAppDispatch } from '../../hooks';
+import './favorite-card.css';
 
 type FavoriteCardProps = {
   offer: Offer;
@@ -44,7 +44,7 @@ function FavoriteCard ({offer}: FavoriteCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${offer.rating * RATING_TO_BAR_WIDTH_RATIO}%`}}></span>
+            <span className={getRatingClassName(offer.rating)}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

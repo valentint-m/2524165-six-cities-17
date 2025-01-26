@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortTypeName } from '../../const';
 import { getSortTypeName } from '../../store/offer-data/offer-data-selectors';
 import { offerData } from '../../store/offer-data/offer-data';
-import SortType from './sort-type';
+import SortType from '../sort-type/sort-type';
 
 export default function SortTypeList (): JSX.Element {
   const dispatch = useAppDispatch();

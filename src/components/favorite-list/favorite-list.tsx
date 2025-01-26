@@ -1,5 +1,5 @@
 import { CityName } from '../../const';
-import FavoriteCity from './favorite-city';
+import FavoriteCity from '../favorite-city/favorite-city';
 
 type FavoriteCityListProps = {
   citiesOfFavoriteOffers: CityName[];

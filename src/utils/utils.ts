@@ -1,4 +1,4 @@
-import { ApiRoute } from '../const';
+import { ApiRoute, RatingClassName, RatingValue } from '../const';
 
 function getPathById (id: string | undefined) {
   return `/offer/${id}`;
@@ -33,4 +33,22 @@ function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
 }
 
-export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate, getRandomInt };
+function getRatingClassName(rating: number) {
+  const roundedRating = Math.round(rating);
+  switch (roundedRating) {
+    case RatingValue.One:
+      return RatingClassName.OneStar;
+    case RatingValue.Two:
+      return RatingClassName.TwoStars;
+    case RatingValue.Three:
+      return RatingClassName.ThreeStars;
+    case RatingValue.Four:
+      return RatingClassName.FourStars;
+    case RatingValue.Five:
+      return RatingClassName.FiveStars;
+    default:
+      return undefined;
+  }
+}
+
+export { getPathById, getOfferUrlById, getNearbyOffersUrlById, getCommentsUrlById, getOfferFavoriteStatusUrl, getFormattedDate, getRandomInt, getRatingClassName};
